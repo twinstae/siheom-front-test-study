@@ -1,4 +1,4 @@
-const prefix: string = 'Invariant failed';
+const prefix: string = "Invariant failed";
 
 export default function invariant(
   condition: any,
@@ -8,7 +8,7 @@ export default function invariant(
     return;
   }
 
-  const provided: string | undefined = typeof message === 'function' ? message() : message;
+  const provided: string | undefined = typeof message === "function" ? message() : message;
   const value: string = provided ? `${prefix}: ${provided}` : prefix;
   throw new Error(value);
 }
