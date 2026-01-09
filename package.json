@@ -1,15 +1,23 @@
 {
   "name": "siheom-front-test-study",
-  "module": "index.ts",
-  "type": "module",
   "private": true,
+  "type": "module",
+  "module": "index.ts",
+  "scripts": {
+    "test": "bun test --watch",
+    "lint": "oxlint check . --fix",
+    "format": "oxfmt . --write"
+  },
+  "dependencies": {
+    "temporal-polyfill": "^0.3.0",
+    "valibot": "^1.2.0"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "oxfmt": "^0.23.0",
+    "oxlint": "^1.38.0"
   },
   "peerDependencies": {
     "typescript": "^5"
-  },
-  "dependencies": {
-    "valibot": "^1.2.0"
   }
 }
