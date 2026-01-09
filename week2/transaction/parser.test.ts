@@ -7,7 +7,8 @@ describe("parseTransaction", () => {
   it("balance가 0이 맞는 경우", async () => {
     const result = parseTransaction(validTransaction);
 
-    expect(result).toMatchObject({
+    expect(result).toStrictEqual({
+      __brand: "ValidTransaction",
       date: Temporal.PlainDate.from(validTransaction.date),
       description: "김토끼가 또 출자함",
       postings: [

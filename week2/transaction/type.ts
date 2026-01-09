@@ -15,7 +15,7 @@ type Brand<K, T> = K & { __brand: T };
 
 export const ACCOUNT_LIST = ["자본:출자금", "자산:현금"] as const;
 export type Account = (typeof ACCOUNT_LIST)[number]; // ...
-export const COMMODITY_LIST = ["KRW"];
+export const COMMODITY_LIST = ["KRW"] as const;
 export type Commodity = "KRW";
 
 export type ValidTransaction = Brand<
