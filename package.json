@@ -1,0 +1,15 @@
+{
+  "name": "siheom-front-test-study",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "valibot": "^1.2.0"
+  }
+}
