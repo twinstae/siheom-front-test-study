@@ -4,6 +4,7 @@ import * as v from "valibot";
 import { Temporal } from "temporal-polyfill";
 import invariant from "../invariant";
 import { isBalanceZero } from "./domain";
+import { parseStandardSchemaV1 } from "../standard-schema";
 
 const postingSchema = v.object({
   account: v.picklist(ACCOUNT_LIST),
@@ -15,7 +16,7 @@ const validTransactionSchema = v.object({
   __brand: v.literal("ValidTransaction"),
   date: v.pipe(
     v.string(),
-    v.regex(v.ISO_DATE_REGEX),
+    v.regex(v.ISO_DATE_REGEX, "올바른 날짜 형식이 아닙니다"),
     v.transform((str) => Temporal.PlainDate.from(str)),
   ),
   description: v.string(),
@@ -26,7 +27,10 @@ const validTransactionSchema = v.object({
 export function parseTransaction(transaction: SimpleTransaction): ValidTransaction {
   invariant(isBalanceZero(transaction), "Transaction is not balanced");
 
-  return v.parse(validTransactionSchema, { ...transaction, __brand: "ValidTransaction" });
+  return parseStandardSchemaV1(validTransactionSchema, {
+    ...transaction,
+    __brand: "ValidTransaction",
+  });
 }
 
 export function poorParseTransaction(transaction: SimpleTransaction): ValidTransaction {

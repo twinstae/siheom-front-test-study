@@ -2,10 +2,11 @@ import { describe, it, expect } from "bun:test";
 import { notBalancedTransaction, validTransaction } from "./fixtures";
 import { parseTransaction } from "./parser";
 import { Temporal } from "temporal-polyfill";
-import * as v from 'valibot';
-import invariant from "../invariant";
+import { StandardSchemaV1Error, summarizeStandardSchemaV1Issues } from "../standard-schema";
 
-function safeTry<T>(fn: () => T): { result: T, error: undefined } | { result: undefined, error: unknown } {
+function safeTry<T>(
+  fn: () => T,
+): { result: T; error: undefined } | { result: undefined; error: unknown } {
   try {
     return { result: fn(), error: undefined };
   } catch (error) {
@@ -14,7 +15,7 @@ function safeTry<T>(fn: () => T): { result: T, error: undefined } | { result: un
 }
 
 describe("parseTransaction", () => {
-  it("balance가 0이 맞는 경우", async () => {
+  it("balance가 0이 맞는 경우", () => {
     const result = parseTransaction(validTransaction);
 
     expect(result).toStrictEqual({
@@ -39,20 +40,29 @@ describe("parseTransaction", () => {
     expect(result.date.toString()).toBe(validTransaction.date);
   });
 
-  it("balance가 0이 안 맞는 경우", async () => {
+  it("balance가 0이 안 맞는 경우", () => {
     expect(() => parseTransaction(notBalancedTransaction)).toThrow("Transaction is not balanced");
   });
 
-  it("date가 올바르지 않은 경우", async () => {
-    const { error } = safeTry(() => parseTransaction({
-      ...validTransaction,
-      date: "2025-11-11 12:00:00",
-    }));
-
-    invariant(v.isValiError(error));
-    expect(v.summarize(error.issues)).toMatchInlineSnapshot(`
-      "× Invalid format: Expected /^\\d{4}-(?:0[1-9]|1[0-2])-(?:[12]\\d|0[1-9]|3[01])$/u but received "2025-11-11 12:00:00"
-        → at date"
-    `);
+  it("date가 올바르지 않은 경우", () => {
+    assertStandardSchemaV1Error(
+      () =>
+        parseTransaction({
+          ...validTransaction,
+          date: "2025-11-11",
+        }),
+      {
+        date: "올바른 날짜 형식이 아닙니다",
+      },
+    );
   });
 });
+
+function assertStandardSchemaV1Error(run: () => unknown, expected: any): void {
+  const { error } = safeTry(run);
+
+  if (error instanceof StandardSchemaV1Error === false) {
+    throw new Error("StandardSchemaV1Error가 발생하지 않았습니다 : " + error);
+  }
+  expect(summarizeStandardSchemaV1Issues(error.issues)).toStrictEqual(expected);
+}
