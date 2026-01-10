@@ -1,8 +1,9 @@
 import { describe, it, expect } from "bun:test";
 import { notBalancedTransaction, validTransaction } from "./fixtures";
-import { parseTransaction } from "./parser";
+import { parseTransaction, validTransactionSchema } from "./parser";
 import { Temporal } from "temporal-polyfill";
-import { StandardSchemaV1Error, summarizeStandardSchemaV1Issues } from "../standard-schema";
+import { parseStandardSchemaV1, StandardSchemaV1Error, summarizeStandardSchemaV1Issues } from "../standard-schema";
+import { Valimock } from "valimock";
 
 function safeTry<T>(
   fn: () => T,
@@ -44,12 +45,20 @@ describe("parseTransaction", () => {
     expect(() => parseTransaction(notBalancedTransaction)).toThrow("Transaction is not balanced");
   });
 
+  it("mock data 생성", () => {
+    const result = new Valimock().mock(validTransactionSchema);
+    expect(parseStandardSchemaV1(validTransactionSchema, result)).toStrictEqual({
+      ...result,
+      date: Temporal.PlainDate.from(result.date),
+    });
+  });
+
   it("date가 올바르지 않은 경우", () => {
     assertStandardSchemaV1Error(
       () =>
         parseTransaction({
           ...validTransaction,
-          date: "2025-11-11",
+          date: "2025-11-11 12:00:00",
         }),
       {
         date: "올바른 날짜 형식이 아닙니다",

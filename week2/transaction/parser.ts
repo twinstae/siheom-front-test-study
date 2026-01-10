@@ -12,7 +12,7 @@ const postingSchema = v.object({
   commodity: v.picklist(COMMODITY_LIST),
 });
 
-const validTransactionSchema = v.object({
+export const validTransactionSchema = v.object({
   __brand: v.literal("ValidTransaction"),
   date: v.pipe(
     v.string(),

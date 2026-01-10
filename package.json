@@ -6,16 +6,20 @@
   "scripts": {
     "test": "bun test --watch",
     "lint": "oxlint check . --fix",
-    "format": "oxfmt . --write"
+    "format": "oxfmt . --write",
+    "typecheck": "tsgo --noEmit"
   },
   "dependencies": {
     "temporal-polyfill": "^0.3.0",
     "valibot": "^1.2.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.2.0",
     "@types/bun": "latest",
+    "@typescript/native-preview": "^7.0.0-dev.20260109.1",
     "oxfmt": "^0.23.0",
-    "oxlint": "^1.38.0"
+    "oxlint": "^1.38.0",
+    "valimock": "^1.4.0"
   },
   "peerDependencies": {
     "typescript": "^5"
