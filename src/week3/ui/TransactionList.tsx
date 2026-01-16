@@ -1,5 +1,9 @@
 import { useId } from "react";
 import type { ValidTransaction } from "../../week2/transaction/type";
+import type { Temporal } from "temporal-polyfill";
+import { Badge } from "../../components/base/badges/badges";
+import { getAccountType } from "../../week2/transaction/domain";
+import { cx } from "../../utils/cx";
 
 export function TransactionList({ transactions }: { transactions: ValidTransaction[] }) {
   const titleId = useId();
@@ -26,18 +30,67 @@ function TransactionItem({ transaction }: { transaction: ValidTransaction }) {
     <li className="shadow-sm rounded-lg p-4">
       <div className="flex items-center gap-2 mb-2">
         <h3 className="text-2xl text-primary font-semibold">{transaction.description}</h3>
-        <time dateTime={transaction.date.toString()}>{transaction.date.toLocaleString()}</time>
+        <DateBadge date={transaction.date} />
       </div>
-      <h4>postings</h4>
-      <ul>
-        {transaction.postings.map((posting) => {
-          return (
-            <li key={posting.account}>
-              {posting.account} {posting.amount} {posting.commodity}
-            </li>
-          );
-        })}
-      </ul>
+      <PostingsList postings={transaction.postings} />
     </li>
+  );
+}
+
+function getAccountColor(account: string): "blue" | "gray" | "error" {
+  switch (getAccountType(account)) {
+    case "자본":
+      return "blue";
+    case "자산":
+      return "gray";
+    case "부채":
+      return "error";
+    case "사업수익":
+      return "blue";
+    case "사업비용":
+      return "error";
+  }
+}
+
+function DateBadge({ date }: { date: Temporal.PlainDate }) {
+  return (
+    <time dateTime={date.toString()}>
+      <Badge type="modern" color="gray" size="md">
+        {date.toLocaleString("ko-KR")}
+      </Badge>
+    </time>
+  );
+}
+
+function PostingsList({ postings }: { postings: ValidTransaction["postings"] }) {
+  const postingsTitleId = useId();
+  return (
+    <div>
+      <h4 id={postingsTitleId} className="font-semibold mb-1">
+        postings
+      </h4>
+      <ul role="list" aria-labelledby={postingsTitleId} className="flex flex-col gap-2">
+        {postings.map((posting, pIndex) => (
+          <li key={pIndex} className="flex gap-2 items-center">
+            <Badge type="color" color={getAccountColor(posting.account)} size="md">
+              {posting.account}
+            </Badge>
+
+            <span
+              className={cx(
+                "font-medium text-lg",
+                posting.amount > 0 ? "text-black" : "text-error-600",
+              )}
+            >
+              {posting.amount.toLocaleString()}
+            </span>
+
+            <Badge type="color" color="brand">
+              {posting.commodity}
+            </Badge>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
