@@ -12,4 +12,16 @@ describe("TransactionList", () => {
       assertions.visible(query.text("거래가 없습니다.")),
     );
   });
+
+  it("거래가 있으면, 거래 내역을 보여준다", async () => {
+    return runSiheom(
+      given.render(<TransactionList {...Stories.WithData.args} />),
+      assertions.visible(query.heading("굿즈 판매 매출")),
+
+      assertions.a11ySnapshot(
+        query.list("거래 목록"),
+        "__snapshot__/transaction-list-with-data.snap",
+      ),
+    );
+  });
 });
