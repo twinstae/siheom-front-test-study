@@ -6,15 +6,22 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "bun test --watch",
+    "test": "vitest",
     "lint": "oxlint check . --fix",
     "format": "oxfmt . --write",
     "typecheck": "tsgo --noEmit",
     "storybook": "storybook"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-router": "^1.149.3",
     "@tanstack/react-start": "^1.149.4",
+    "@untitledui/icons": "^0.0.20",
+    "react-aria-components": "^1.14.0",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.18",
+    "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-react-aria-components": "^2.0.1",
     "temporal-polyfill": "^0.3.0",
     "valibot": "^1.2.0"
   },
@@ -22,19 +29,28 @@
     "@faker-js/faker": "^10.2.0",
     "@storybook/builder-vite": "^10.1.11",
     "@storybook/react-vite": "^10.1.11",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
     "@types/bun": "latest",
     "@types/node": "^25.0.8",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "@typescript/native-preview": "^7.0.0-dev.20260109.1",
     "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/browser-playwright": "^4.0.17",
+    "dom-accessibility-api": "^0.7.1",
+    "jsdom": "^27.4.0",
     "oxfmt": "^0.23.0",
     "oxlint": "^1.38.0",
     "siheom-ts": "^0.1.0",
     "storybook": "^10.1.11",
     "valimock": "^1.4.0",
     "vite": "^7.3.1",
-    "vite-tsconfig-paths": "^6.0.4"
+    "vite-tsconfig-paths": "^6.0.4",
+    "vitest": "^4.0.17",
+    "vitest-browser-react": "^2.0.2"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"

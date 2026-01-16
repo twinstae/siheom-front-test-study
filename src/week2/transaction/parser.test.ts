@@ -1,13 +1,8 @@
-import { describe, it, expect } from "bun:test";
-import { notBalancedTransaction, validTransaction } from "./fixtures";
-import { parseTransaction, validTransactionSchema } from "./parser";
+import { describe, it, expect } from "vitest";
+import { notBalancedSimpleTransaction, validSimpleTransaction } from "./fixtures";
+import { parseTransaction } from "./parser";
 import { Temporal } from "temporal-polyfill";
-import {
-  parseStandardSchemaV1,
-  StandardSchemaV1Error,
-  summarizeStandardSchemaV1Issues,
-} from "../standard-schema";
-import { Valimock } from "valimock";
+import { StandardSchemaV1Error, summarizeStandardSchemaV1Issues } from "../standard-schema";
 
 function safeTry<T>(
   fn: () => T,
@@ -21,11 +16,11 @@ function safeTry<T>(
 
 describe("parseTransaction", () => {
   it("balance가 0이 맞는 경우", () => {
-    const result = parseTransaction(validTransaction);
+    const result = parseTransaction(validSimpleTransaction);
 
     expect(result).toStrictEqual({
       __brand: "ValidTransaction",
-      date: Temporal.PlainDate.from(validTransaction.date),
+      date: Temporal.PlainDate.from(validSimpleTransaction.date),
       description: "김토끼가 또 출자함",
       postings: [
         {
@@ -42,26 +37,20 @@ describe("parseTransaction", () => {
       tags: ["출자"],
     });
 
-    expect(result.date.toString()).toBe(validTransaction.date);
+    expect(result.date.toString()).toBe(validSimpleTransaction.date);
   });
 
   it("balance가 0이 안 맞는 경우", () => {
-    expect(() => parseTransaction(notBalancedTransaction)).toThrow("Transaction is not balanced");
-  });
-
-  it("mock data 생성", () => {
-    const result = new Valimock().mock(validTransactionSchema);
-    expect(parseStandardSchemaV1(validTransactionSchema, result)).toStrictEqual({
-      ...result,
-      date: Temporal.PlainDate.from(result.date),
-    });
+    expect(() => parseTransaction(notBalancedSimpleTransaction)).toThrow(
+      "Transaction is not balanced",
+    );
   });
 
   it("date가 올바르지 않은 경우", () => {
     assertStandardSchemaV1Error(
       () =>
         parseTransaction({
-          ...validTransaction,
+          ...validSimpleTransaction,
           date: "2025-11-11 12:00:00",
         }),
       {
