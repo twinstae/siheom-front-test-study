@@ -98,7 +98,7 @@ export function SimpleComboboxWithSelect({
           items={items}
           selectedKey={field.value}
           onSelectionChange={(selectedKey) => {
-            field.onChange(selectedKey ?? undefined);
+            field.onChange(selectedKey);
           }}
           isInvalid={fieldState.invalid}
           hint={fieldState.error?.message}
@@ -192,12 +192,12 @@ function parseSafeNumber(input?: string): number | undefined {
     return undefined;
   }
 
-  const parsed = Number(cleaned);
+  const result = Number(cleaned);
 
-  if (Number.isNaN(parsed)) return undefined;
-
-  return parsed;
+  invariant(!Number.isNaN(result), "Invalid number input: " + input);
+  return result;
 }
+
 export function SimpleNumberInputGroup({
   name,
   label,

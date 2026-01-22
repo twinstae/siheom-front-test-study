@@ -18,6 +18,15 @@ export default defineConfig({
   ],
   test: {
     setupFiles: ["./setupTest.ts"],
+    coverage: {
+      exclude: [
+        "./test.css",
+        "./src/siheom",
+        "./src/components",
+        "./src/hooks/use-resize-observer.ts",
+        "**/*.stories.tsx"
+      ]
+    },
     projects: [
       {
         test: {

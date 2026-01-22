@@ -82,7 +82,7 @@ function PostingsFieldSet() {
   const { control, getValues, setValue } = useFormContext();
 
   const postingsLength = useWatch({
-    compute: (values) => values.postings?.length ?? 0,
+    compute: (values) => values.postings.length,
     control,
   });
 
@@ -97,7 +97,7 @@ function PostingsFieldSet() {
         {Array.from({ length: postingsLength }).map((_, index) => {
           const deletePosting = () => {
             const oldPostings = getValues("postings") as SimpleTransaction["postings"];
-            setValue("postings", oldPostings?.filter((_, i) => i !== index) ?? []);
+            setValue("postings", oldPostings.filter((_, i) => i !== index));
           }
           return (
             <li
@@ -154,7 +154,7 @@ function PostingsFieldSet() {
             onClick={() => {
               const oldPostings = getValues("postings");
               setValue("postings", [
-                ...(oldPostings ?? []),
+                ...oldPostings,
                 {
                   account: "",
                   amount: 0,

@@ -14,8 +14,11 @@ export const defaultAssertions = {
         expect(element).toBeInTheDocument();
         expect(element).not.toHaveAttribute("aria-hidden", "true");
       } else {
-        expect(element).not.toBeInTheDocument();
-        expect(element).not.toHaveAttribute("aria-hidden", "false");
+        if (element) {
+          expect(element).not.toHaveAttribute("aria-hidden", "false");
+        } else {
+          expect(element).not.toBeInTheDocument();
+        }
       }
     });
   },

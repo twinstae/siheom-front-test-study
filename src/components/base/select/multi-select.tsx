@@ -319,6 +319,7 @@ const InnerMultiSelect = ({
 
             <TagCloseX
               size="md"
+              label={value.label ?? ""}
               isDisabled={isDisabled}
               className="ml-0.75"
               // For workaround, onKeyDown is added to the button

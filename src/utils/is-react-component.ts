@@ -15,11 +15,13 @@ export const isFunctionComponent = (component: any): component is React.FC<any> 
  * Checks if a given value is a class component.
  */
 export const isClassComponent = (component: any): component is React.ComponentClass<any, any> => {
-  return (
-    typeof component === "function" &&
-    component.prototype &&
-    (!!component.prototype.isReactComponent || !!component.prototype.render)
-  );
+  if (typeof component !== "function") {
+    return false;
+  }
+  if (!component.prototype) {
+    return false;
+  }
+  return !!(component.prototype.isReactComponent || component.prototype.render);
 };
 
 /**
@@ -28,11 +30,13 @@ export const isClassComponent = (component: any): component is React.ComponentCl
 export const isForwardRefComponent = (
   component: any,
 ): component is React.ForwardRefExoticComponent<any> => {
-  return (
-    typeof component === "object" &&
-    component !== null &&
-    component.$$typeof.toString() === "Symbol(react.forward_ref)"
-  );
+  if (typeof component !== "object" || component === null) {
+    return false;
+  }
+  if (!component.$$typeof) {
+    return false;
+  }
+  return component.$$typeof.toString() === "Symbol(react.forward_ref)";
 };
 
 /**

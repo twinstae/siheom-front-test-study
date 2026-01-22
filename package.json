@@ -48,6 +48,7 @@
     "@typescript/native-preview": "^7.0.0-dev.20260109.1",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/browser-playwright": "^4.0.17",
+    "@vitest/coverage-v8": "4.0.17",
     "dom-accessibility-api": "^0.7.1",
     "jsdom": "^27.4.0",
     "oxfmt": "^0.23.0",

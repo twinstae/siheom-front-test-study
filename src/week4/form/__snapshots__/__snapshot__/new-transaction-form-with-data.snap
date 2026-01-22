@@ -38,6 +38,6 @@ form: "새 거래 추가하기"
   group
     paragraph
       "구매"
-    button: "Remove this tag 태그" [expanded=false]
+    button: "Remove 구매 태그" [expanded=false]
     combobox: "태그" [expanded=false] [value=""]
   button: "거래 추가하기"

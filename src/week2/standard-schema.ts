@@ -41,20 +41,23 @@ export async function parseAsyncStandardSchemaV1<Input, Output>(
   return result.value;
 }
 
+export function getPath(path: StandardSchemaV1.Issue["path"]): string {
+  return path
+    ?.map((segment) =>
+      typeof segment === "object" && segment !== null && "key" in segment
+        ? `${String(segment.key)}`
+        : String(segment),
+    )
+    .join(".") ?? "<root>";
+}
+
 export function summarizeStandardSchemaV1Issues(
   issues: ReadonlyArray<StandardSchemaV1.Issue>,
   // output value as string
 ): Record<string, string> {
   return Object.fromEntries(
     issues.map((issue) => {
-      const path =
-        issue.path
-          ?.map((segment) =>
-            typeof segment === "object" && "key" in segment
-              ? `${String(segment.key)}`
-              : String(segment),
-          )
-          .join(".") ?? "<root>";
+      const path = getPath(issue.path);
       return [path, issue.message];
     }),
   );
