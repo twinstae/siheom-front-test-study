@@ -50,22 +50,30 @@ export function NewTransactionForm({
         ...initTransaction,
       }}
       className="flex flex-col gap-2 max-w-4xl w-full"
-      // 폼의 이름을 어떻게?
+      aria-labelledby={formTitleId}
       onSubmit={addTransaction}
     >
-      {/* 폼의 이름 heading */}
-
-      {/* 거래 일자 DatePicker */}
+      <h2 className="text-2xl font-bold" id={formTitleId}>
+        새 거래 추가하기
+      </h2>
       <SimpleDatePicker name="date" label="거래 일자" />
 
       {/* 거래 설명 TextField */}
+      <SimpleInput name="description" label="거래 설명" />
 
       {/* 분개 postings */}
       <PostingsFieldSet />
 
       {/* 태그 tags Select with combobox tags*/}
+      <SimpleMultiSelect
+        name="tags"
+        label="태그"
+        items={["구매"].map((tag) => ({ id: tag, label: tag }))}
+      />
 
-      {/* submit button  */}
+      <Button type="submit" size="lg" color="primary" className="mt-2">
+        거래 추가하기
+      </Button>
     </SimpleForm>
   );
 }
