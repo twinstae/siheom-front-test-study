@@ -4,6 +4,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { playwright } from "@vitest/browser-playwright";
 import tailwindcss from "@tailwindcss/vite";
+import path from "node:path";
 
 export default defineConfig({
   server: {
@@ -16,6 +17,11 @@ export default defineConfig({
     viteReact(),
     tailwindcss(),
   ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   test: {
     setupFiles: ["./setupTest.ts"],
     projects: [
