@@ -21,107 +21,19 @@ export const validTransactionSchema = v.pipe(
       v.transform((str) => Temporal.PlainDate.from(str)),
     ),
     description: v.string(),
-    postings: v.array(postingSchema),
+    postings: v.pipe(v.array(postingSchema), v.minLength(2, "차변과 대변의 계정과목을 입력해주세요")),
     tags: v.array(v.string()),
   }),
   v.forward(
-    v.check((transaction) => isBalanceZero(transaction), "Transaction is not balanced"),
+    v.check((transaction) => isBalanceZero(transaction), "차변과 대변의 합이 0이 아닙니다"),
     ["postings"]
   ),
 );
 
-export function parseTransaction(transaction: SimpleTransaction): ValidTransaction {
-  invariant(isBalanceZero(transaction), "Transaction is not balanced");
+export function parseTransaction(transaction: unknown): ValidTransaction {
 
   return parseStandardSchemaV1(validTransactionSchema, {
-    ...transaction,
+    ...transaction ?? {},
     __brand: "ValidTransaction",
   });
-}
-
-export function poorParseTransaction(transaction: SimpleTransaction): ValidTransaction {
-  // very verbose manual validation without schemas or invariant
-  if (transaction == null || typeof transaction !== "object") {
-    throw new Error("transaction must be an object");
-  }
-
-  // date
-  if (typeof transaction.date !== "string" || !v.ISO_DATE_REGEX.test(transaction.date)) {
-    throw new Error("date must be a string in ISO format");
-  }
-
-  const date = Temporal.PlainDate.from(transaction.date);
-
-  // description
-  if (typeof transaction.description !== "string") {
-    throw new Error("description must be a string");
-  }
-
-  // postings
-  if (!Array.isArray(transaction.postings)) {
-    throw new Error("postings must be an array");
-  }
-  if (transaction.postings.length === 0) {
-    throw new Error("postings must have at least one entry");
-  }
-
-  const postings = [] as {
-    account: any;
-    amount: number;
-    commodity: any;
-  }[];
-
-  for (let i = 0; i < transaction.postings.length; i++) {
-    const p = (transaction.postings as any)[i];
-    if (p == null || typeof p !== "object") {
-      throw new Error(`posting[${i}] must be an object`);
-    }
-    if (typeof p.account !== "string") {
-      throw new Error(`posting[${i}].account must be a string`);
-    }
-    if (!ACCOUNT_LIST.includes(p.account as any)) {
-      throw new Error(`posting[${i}].account is unknown: ${p.account}`);
-    }
-    if (typeof p.amount !== "number" || !Number.isFinite(p.amount)) {
-      throw new Error(`posting[${i}].amount must be a finite number`);
-    }
-    if (typeof p.commodity !== "string") {
-      throw new Error(`posting[${i}].commodity must be a string`);
-    }
-    if (!COMMODITY_LIST.includes(p.commodity as any)) {
-      throw new Error(`posting[${i}].commodity is unknown: ${p.commodity}`);
-    }
-
-    postings.push({ account: p.account, amount: p.amount, commodity: p.commodity });
-  }
-
-  // tags
-  if (!Array.isArray(transaction.tags)) {
-    throw new Error("tags must be an array");
-  }
-  for (let i = 0; i < transaction.tags.length; i++) {
-    if (typeof (transaction.tags as any)[i] !== "string") {
-      throw new Error(`tags[${i}] must be a string`);
-    }
-  }
-
-  // balance check
-  let sum = 0;
-  for (const p of postings) sum += p.amount;
-  if (sum !== 0) {
-    throw new Error(`transaction is not balanced (sum=${sum})`);
-  }
-
-  // construct ValidTransaction
-  return {
-    __brand: "ValidTransaction",
-    date,
-    description: transaction.description,
-    postings: postings.map((p) => ({
-      account: p.account,
-      amount: p.amount,
-      commodity: p.commodity,
-    })),
-    tags: transaction.tags.slice(),
-  };
 }

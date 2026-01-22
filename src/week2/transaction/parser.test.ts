@@ -42,7 +42,7 @@ describe("parseTransaction", () => {
 
   it("balance가 0이 안 맞는 경우", () => {
     expect(() => parseTransaction(notBalancedSimpleTransaction)).toThrow(
-      "Transaction is not balanced",
+      StandardSchemaV1Error,
     );
   });
 
