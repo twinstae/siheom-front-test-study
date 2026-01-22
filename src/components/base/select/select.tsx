@@ -8,9 +8,9 @@ import {
   Select as AriaSelect,
   SelectValue as AriaSelectValue,
 } from "react-aria-components";
-import { Avatar } from "@/components/base/avatar/avatar";
-import { HintText } from "@/components/base/input/hint-text";
-import { Label } from "@/components/base/input/label";
+import { Avatar } from "../../../components/base/avatar/avatar";
+import { HintText } from "../../../components/base/input/hint-text";
+import { Label } from "../../../components/base/input/label";
 import { cx } from "../../../utils/cx";
 import { isReactComponent } from "../../../utils/is-react-component";
 import { ComboBox } from "./combobox";

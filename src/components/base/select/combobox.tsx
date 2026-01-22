@@ -13,16 +13,16 @@ import {
   ListBox as AriaListBox,
   ComboBoxStateContext,
 } from "react-aria-components";
-import { HintText } from "@/components/base/input/hint-text";
-import { Label } from "@/components/base/input/label";
-import { Popover } from "@/components/base/select/popover";
+import { HintText } from "../../../components/base/input/hint-text";
+import { Label } from "../../../components/base/input/label";
+import { Popover } from "../../../components/base/select/popover";
 import {
   type CommonProps,
   SelectContext,
   type SelectItemType,
   sizes,
-} from "@/components/base/select/select";
-import { useResizeObserver } from "@/hooks/use-resize-observer";
+} from "../../../components/base/select/select";
+import { useResizeObserver } from "../../../hooks/use-resize-observer";
 import { cx } from "../../../utils/cx";
 
 interface ComboBoxProps

@@ -1,13 +1,15 @@
 {
     "compilerOptions": {
-        "paths": { "@/*": ["./src/*"] },
+        "paths": {
+            "@/*": ["./src/*"]
+        },
         // Environment setup & latest features
         "lib": ["DOM", "DOM.Iterable", "ES2022"],
         "target": "ESNext",
         "module": "Preserve",
         "moduleDetection": "force",
         "jsx": "react-jsx",
-        "allowJs": true,
+        "allowJs": false,
 
         // Bundler mode
         "moduleResolution": "bundler",

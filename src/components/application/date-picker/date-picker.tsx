@@ -9,7 +9,7 @@ import {
   Group as AriaGroup,
   Popover as AriaPopover,
 } from "react-aria-components";
-import { Button } from "@/components/base/buttons/button";
+import { Button } from "../../../components/base/buttons/button";
 import { cx } from "../../../utils/cx";
 import { Calendar } from "./calendar";
 
