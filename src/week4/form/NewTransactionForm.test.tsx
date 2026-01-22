@@ -43,18 +43,21 @@ it("새 거래를 추가할 수 있다", async () => {
     fillDate("거래 일자", Temporal.PlainDate.from("2025-12-25")),
 
     // 거래 설명 텍스트박스에 "김토끼가 라즈베리파이를 구매함" 입력하기
+    actions.fill(query.textbox(/거래 설명/), "김토끼가 라즈베리파이를 구매함"),
 
     // 새 계정과목 추가하기 버튼을 클릭하기
+    actions.click(query.button("새 계정과목 추가하기")),
 
     // 계정과목 1 콤보박스에 현금 입력하기
-
+    actions.fill(query.combobox(/계정과목 1/), "현금"),
     // "자산:유동자산:당좌자산:현금및현금성자산:현금" 옵션을 선택하기
-
+    actions.click(query.option("자산:유동자산:당좌자산:현금및현금성자산:현금")),
     // 금액 1 텍스트박스에 -120000 입력하기
-
+    actions.fill(query.textbox(/금액 1/), "-120000"),
 
     // 통화 1 버튼을 클릭하고 KRW 옵션을 선택하기
-
+    actions.click(query.button(/통화 1/)),
+    actions.click(query.option("KRW")),
 
     actions.click(query.button("새 계정과목 추가하기")),
     actions.click(query.button("새 계정과목 추가하기")),
