@@ -50,31 +50,22 @@ export function NewTransactionForm({
         ...initTransaction,
       }}
       className="flex flex-col gap-2 max-w-4xl w-full"
-      aria-labelledby={formTitleId}
+      // 폼의 이름을 어떻게?
       onSubmit={addTransaction}
     >
-      <h2 className="text-2xl font-bold" id={formTitleId}>
-        {" "}
-        새 거래 추가하기
-      </h2>
+      {/* 폼의 이름 heading */}
+
+      {/* 거래 일자 DatePicker */}
       <SimpleDatePicker name="date" label="거래 일자" />
 
       {/* 거래 설명 TextField */}
-      <SimpleInput name="description" label="거래 설명" />
 
       {/* 분개 postings */}
       <PostingsFieldSet />
 
       {/* 태그 tags Select with combobox tags*/}
-      <SimpleMultiSelect
-        name="tags"
-        label="태그"
-        items={["구매"].map((tag) => ({ id: tag, label: tag }))}
-      />
 
-      <Button type="submit" size="lg" color="primary" className="mt-2">
-        거래 추가하기
-      </Button>
+      {/* submit button  */}
     </SimpleForm>
   );
 }
@@ -95,55 +86,58 @@ function PostingsFieldSet() {
         분개
       </legend>
       <ul>
-        {Array.from({ length: postingsLength }).map((_, index) => (
-          <li
-            key={index}
-            className="ml-4 mb-2 flex flex-col md:flex-row gap-1 shadow-sm rounded p-2"
-          >
-            {/* 계정과목 Select With Combobox */}
-            <SimpleComboboxWithSelect
-              className="min-w-sm"
-              name={`postings.${index}.account`}
-              label={"계정과목 " + (index + 1)}
-              items={ACCOUNT_LIST.map((account) => ({
-                id: account,
-                label: account,
-              }))}
-            />
-            {/* 금액 amount NumberInput */}
-            <SimpleNumberInputGroup
-              name={`postings.${index}.amount`}
-              className="max-w-xl"
-              isRequired
-              label={`금액 ${index + 1}`}
-              trailingAddon={
-                // 통화 commodity Select
-                <SimpleSelect
-                  className="min-w-24"
-                  name={`postings.${index}.commodity`}
-                  label={`통화 ${index + 1}`}
-                  items={COMMODITY_LIST.map((commodity) => ({
-                    label: commodity,
-                    id: commodity,
-                  }))}
-                />
-              }
-            />
+        {Array.from({ length: postingsLength }).map((_, index) => {
+          const deletePosting = () => {
+            const oldPostings = getValues("postings") as SimpleTransaction["postings"];
+            setValue("postings", oldPostings?.filter((_, i) => i !== index) ?? []);
+          }
+          return (
+            <li
+              key={index}
+              className="ml-4 mb-2 flex flex-col md:flex-row gap-1 shadow-sm rounded p-2"
+            >
+              {/* 계정과목 Select With Combobox */}
+              <SimpleComboboxWithSelect
+                className="min-w-sm"
+                name={`postings.${index}.account`}
+                label={"계정과목 " + (index + 1)}
+                items={ACCOUNT_LIST.map((account) => ({
+                  id: account,
+                  label: account,
+                }))}
+              />
+              {/* 금액 amount NumberInput */}
+              <SimpleNumberInputGroup
+                name={`postings.${index}.amount`}
+                className="max-w-xl"
+                isRequired
+                label={`금액 ${index + 1}`}
+                trailingAddon={
+                  // 통화 commodity Select
+                  <SimpleSelect
+                    className="min-w-24"
+                    name={`postings.${index}.commodity`}
+                    label={`통화 ${index + 1}`}
+                    items={COMMODITY_LIST.map((commodity) => ({
+                      label: commodity,
+                      id: commodity,
+                    }))}
+                  />
+                }
+              />
 
-            <Button
-              className="mt-6.5"
-              iconLeading={Trash01}
-              color="secondary-destructive"
-              size="md"
-              onClick={() => {
-                const oldPostings = getValues("postings") as SimpleTransaction["postings"];
-                setValue("postings", oldPostings?.filter((_, i) => i !== index) ?? []);
-              }}
-              aria-label={`계정과목 ${index + 1} 삭제하기`}
-            />
+              <Button
+                className="mt-6.5"
+                iconLeading={Trash01}
+                color="secondary-destructive"
+                size="md"
+                onClick={() => deletePosting()}
+                aria-label={`계정과목 ${index + 1} 삭제하기`}
+              />
+            </li>
+          )
 
-          </li>
-        ))}
+        })}
         <li className="ml-4">
           <Button
             className="w-full"
