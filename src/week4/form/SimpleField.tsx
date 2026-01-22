@@ -48,23 +48,14 @@ export function SimpleInput({
     <Controller
       render={({ field, fieldState }) => (
         <Input
-          name={"" // name
-          }
-          label={"" // label
-          }
+          name={name}
+          label={label}
           isRequired
-          value={"" // field.???
-
-          }
-          onChange={() => {} // field.???
-
-          }
+          value={field.value}
+          onChange={field.onChange}
           {...props}
-          isInvalid={ false // fieldState.???
-
-          }
-          hint={"에러 메시지" // fieldState.???
-            }
+          isInvalid={fieldState.invalid}
+          hint={fieldState.error?.message}
         />
       )}
       control={control}

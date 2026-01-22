@@ -14,11 +14,13 @@ export function SimpleForm<Output>({
   defaultValues,
   ...props
 }: SimpleFormProps<FieldValues, Output>) {
+  const methods = useForm({ defaultValues, resolver: standardSchemaResolver(schema) });
+
   return (
-    // 프로바이더로 methods 내리기
-      // form element에 onSubmit 붙이기
-      <form>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)} {...props}>
         {props.children}
-	  </form>
+      </form>
+    </FormProvider>
   );
 }
