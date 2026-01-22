@@ -137,6 +137,7 @@ export function SimpleSelect({
           onChange={field.onChange}
           isInvalid={fieldState.invalid}
           hint={fieldState.error?.message}
+          {...props}
         >
           {props.children ?? defaultRender}
         </Select>

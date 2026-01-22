@@ -1,7 +1,6 @@
 form: "새 거래 추가하기"
   heading: "새 거래 추가하기" [level=2]
   "거래 일자"
-  "*"
   group: "거래 일자"
     button: "달력 거래 일자" [expanded=false] [description="날짜를 입력해주세요"]
       "Select date"
@@ -9,7 +8,7 @@ form: "새 거래 추가하기"
     "날짜를 입력해주세요"
   "거래 설명"
   "*"
-  textbox: "거래 설명*" [invalid=true] [value=""] [description="설명을 입력해주세요"]
+  textbox: "거래 설명 *" [invalid=true] [value=""] [description="설명을 입력해주세요"]
   alert: "설명을 입력해주세요"
     "설명을 입력해주세요"
   group: "분개"
@@ -20,7 +19,6 @@ form: "새 거래 추가하기"
     alert: "차변과 대변의 계정과목을 입력해주세요"
       "차변과 대변의 계정과목을 입력해주세요"
   "태그"
-  "*"
   group
-    combobox: "태그*" [expanded=false] [value=""]
+    combobox: "태그" [expanded=false] [value=""]
   button: "거래 추가하기"

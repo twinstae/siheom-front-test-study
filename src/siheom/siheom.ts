@@ -4,7 +4,12 @@ import { defaultGivens } from "./given";
 import { getA11ySnapshot } from "./getA11ySnapshot";
 import { defaultAssertions } from "./assert";
 
-export async function runSiheom(...steps: Step<typeof defaultActions, typeof defaultAssertions>[]) {
+export async function runSiheom(
+  ...steps: (
+    | Step<typeof defaultActions, typeof defaultAssertions>
+    | Step<typeof defaultActions, typeof defaultAssertions>[]
+  )[]
+) {
   const logs: string[] = [];
 
   const handleError = (error: Error) => {
@@ -13,7 +18,7 @@ export async function runSiheom(...steps: Step<typeof defaultActions, typeof def
     throw new Error(message);
   };
 
-  for (const step of steps) {
+  for (const step of steps.flat()) {
     if ("action" in step) {
       const run = defaultActions[step.action] as ActionStepDefinitionDict[string];
       logs.push(step.log);

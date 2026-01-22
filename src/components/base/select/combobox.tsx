@@ -24,12 +24,26 @@ import {
 } from "../../../components/base/select/select";
 import { useResizeObserver } from "../../../hooks/use-resize-observer";
 import { cx } from "../../../utils/cx";
+import { getRegExp } from "korean-regexp";
+
+const cachedRegExp = new Map<string, RegExp>();
+
+function getCachedRegExp(filterText: string): RegExp {
+  const cached = cachedRegExp.get(filterText);
+
+  if (cached) {
+    return cached;
+  }
+  const regex = getRegExp(filterText);
+  cachedRegExp.set(filterText, regex);
+  return regex;
+}
 
 interface ComboBoxProps
   extends
-    Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">,
-    RefAttributes<HTMLDivElement>,
-    CommonProps {
+  Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">,
+  RefAttributes<HTMLDivElement>,
+  CommonProps {
   name: string;
   shortcut?: boolean;
   items?: SelectItemType[];
@@ -77,8 +91,6 @@ const ComboBoxValue = ({
     >
       {({ isDisabled }) => (
         <>
-          <SearchIcon className="pointer-events-none size-5 shrink-0 text-fg-quaternary" />
-
           <div className="relative flex w-full items-center gap-2">
             {inputValue && (
               <span
@@ -135,7 +147,7 @@ const ComboBoxValue = ({
 export const ComboBox = ({
   name,
   placeholder = "Search",
-  shortcut = true,
+  shortcut = false,
   size = "sm",
   children,
   items,
@@ -162,7 +174,8 @@ export const ComboBox = ({
 
   return (
     <SelectContext.Provider value={{ size }}>
-      <AriaComboBox menuTrigger="focus" {...otherProps}>
+      <AriaComboBox menuTrigger="focus" {...otherProps}
+        defaultFilter={(textLabel, filterText) => getCachedRegExp(filterText).test(textLabel)}>
         {(state) => (
           <div className="flex flex-col gap-1.5">
             {otherProps.label && (

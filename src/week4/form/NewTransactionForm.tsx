@@ -49,7 +49,7 @@ export function NewTransactionForm({
         tags: [],
         ...initTransaction,
       }}
-      className="flex flex-col gap-2 max-w-4xl"
+      className="flex flex-col gap-2 max-w-4xl w-full"
       aria-labelledby={formTitleId}
       onSubmit={addTransaction}
     >
@@ -98,10 +98,11 @@ function PostingsFieldSet() {
         {Array.from({ length: postingsLength }).map((_, index) => (
           <li
             key={index}
-            className="ml-4 mb-2 flex flex-col sm:flex-row gap-1 shadow-sm rounded p-2"
+            className="ml-4 mb-2 flex flex-col md:flex-row gap-1 shadow-sm rounded p-2"
           >
             {/* 계정과목 Select With Combobox */}
             <SimpleComboboxWithSelect
+              className="min-w-sm"
               name={`postings.${index}.account`}
               label={"계정과목 " + (index + 1)}
               items={ACCOUNT_LIST.map((account) => ({
@@ -118,6 +119,7 @@ function PostingsFieldSet() {
               trailingAddon={
                 // 통화 commodity Select
                 <SimpleSelect
+                  className="min-w-24"
                   name={`postings.${index}.commodity`}
                   label={`통화 ${index + 1}`}
                   items={COMMODITY_LIST.map((commodity) => ({
@@ -129,7 +131,7 @@ function PostingsFieldSet() {
             />
 
             <Button
-              className="self-end"
+              className="mt-6.5"
               iconLeading={Trash01}
               color="secondary-destructive"
               size="md"
@@ -139,6 +141,7 @@ function PostingsFieldSet() {
               }}
               aria-label={`계정과목 ${index + 1} 삭제하기`}
             />
+
           </li>
         ))}
         <li className="ml-4">

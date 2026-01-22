@@ -9,11 +9,12 @@ export default defineConfig({
     port: 3000,
   },
   plugins: [
+    tailwindcss(),
     tsConfigPaths(),
     tanstackStart(),
     // react's vite plugin must come after start's vite plugin
+
     viteReact(),
-    tailwindcss(),
   ],
   test: {
     setupFiles: ["./setupTest.ts"],
@@ -31,7 +32,7 @@ export default defineConfig({
             instances: [{ browser: "chromium" }],
           },
           include: ["src/**/*.test.tsx"],
-          setupFiles: [],
+          setupFiles: ["./setupTest.ts"],
         },
       },
       {

@@ -1,7 +1,7 @@
 import { waitFor } from "@testing-library/dom";
 import { userEvent } from "@testing-library/user-event";
 import type { ActionStepDefinitionDict, Locator } from "./types";
-import { getElement, locatorLog } from "./query";
+import { getElement, locatorLog, query } from "./query";
 import { expect } from "vitest";
 
 export const defaultActions = {
@@ -13,6 +13,28 @@ export const defaultActions = {
 
       await userEvent.click(element);
     }),
+  select: async (target: Locator, value: string) => {
+    await waitFor(async () => {
+      const element = getElement(target, true);
+
+      expect(element).toBeInTheDocument();
+
+      await userEvent.click(element);
+      if (target.role === "combobox") {
+        await userEvent.type(element, value.slice(value.length - 4, value.length));
+      }
+    });
+
+    await waitFor(async () => {
+      const element = getElement(query.option(value), true);
+
+      expect(element).toBeInTheDocument();
+
+      await userEvent.click(element);
+    });
+
+    await userEvent.keyboard("{Escape}");
+  },
   dblclick: async (target: Locator) =>
     waitFor(async () => {
       const element = getElement(target, true);
@@ -70,6 +92,13 @@ export const actions = {
       action: "click",
       target,
       log: `click!      : ${locatorLog(target)}`,
+    }) as const,
+  select: (target: Locator, value: string) =>
+    ({
+      action: "select",
+      target,
+      args: [value],
+      log: `select!     : ${locatorLog(target)} with "${value}"`,
     }) as const,
   dblclick: (target: Locator) =>
     ({
