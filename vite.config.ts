@@ -23,7 +23,7 @@ export default defineConfig({
         test: {
           globals: true,
           name: "browser-ui",
-          root: "./src/week3",
+          root: "./src",
           environment: "jsdom",
           css: true,
           browser: {

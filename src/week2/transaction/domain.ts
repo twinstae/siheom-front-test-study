@@ -8,7 +8,7 @@ function sum(arr: Iterable<number>): number {
   return total;
 }
 
-export function isBalanceZero(transaction: SimpleTransaction): boolean {
+export function isBalanceZero(transaction: Pick<SimpleTransaction, "postings">): boolean {
   return sum(transaction.postings.map((p) => p.amount)) === 0;
 }
 

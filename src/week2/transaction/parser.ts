@@ -12,17 +12,23 @@ const postingSchema = v.object({
   commodity: v.picklist(COMMODITY_LIST),
 });
 
-export const validTransactionSchema = v.object({
-  __brand: v.literal("ValidTransaction"),
-  date: v.pipe(
-    v.string(),
-    v.regex(v.ISO_DATE_REGEX, "올바른 날짜 형식이 아닙니다"),
-    v.transform((str) => Temporal.PlainDate.from(str)),
+export const validTransactionSchema = v.pipe(
+  v.object({
+    __brand: v.literal("ValidTransaction"),
+    date: v.pipe(
+      v.string(),
+      v.regex(v.ISO_DATE_REGEX, "올바른 날짜 형식이 아닙니다"),
+      v.transform((str) => Temporal.PlainDate.from(str)),
+    ),
+    description: v.string(),
+    postings: v.array(postingSchema),
+    tags: v.array(v.string()),
+  }),
+  v.forward(
+    v.check((transaction) => isBalanceZero(transaction), "Transaction is not balanced"),
+    ["postings"]
   ),
-  description: v.string(),
-  postings: v.array(postingSchema),
-  tags: v.array(v.string()),
-});
+);
 
 export function parseTransaction(transaction: SimpleTransaction): ValidTransaction {
   invariant(isBalanceZero(transaction), "Transaction is not balanced");
