@@ -5,6 +5,7 @@ import { Label } from "../../../components/base/input/label";
 import { cx } from "../../../utils/cx";
 
 interface NativeSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+  name: string;
   label?: string;
   hint?: string;
   selectClassName?: string;
@@ -65,7 +66,7 @@ export const NativeSelect = ({
       </div>
 
       {hint && (
-        <HintText className="mt-2" id={hintId}>
+        <HintText name={props.name} className="mt-2" id={hintId}>
           {hint}
         </HintText>
       )}

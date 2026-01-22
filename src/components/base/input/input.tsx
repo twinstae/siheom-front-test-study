@@ -1,7 +1,6 @@
 import {
   type ComponentType,
   type HTMLAttributes,
-  type ReactNode,
   type Ref,
   createContext,
   useContext,
@@ -45,6 +44,8 @@ export interface InputBaseProps extends TextFieldProps {
   groupRef?: Ref<HTMLDivElement>;
   /** Icon component to display on the left side of the input. */
   icon?: ComponentType<HTMLAttributes<HTMLOrSVGElement>>;
+  /** Name of the input */
+  name: string;
 }
 
 export const InputBase = ({
@@ -200,7 +201,7 @@ interface BaseProps {
   /** Label text for the input */
   label?: string;
   /** Helper text displayed below the input */
-  hint?: ReactNode;
+  hint?: string;
 }
 
 interface TextFieldProps
@@ -238,6 +239,8 @@ TextField.displayName = "TextField";
 interface InputProps extends InputBaseProps, BaseProps {
   /** Whether to hide required indicator from label */
   hideRequiredIndicator?: boolean;
+  /** Name of the input */
+  name: string;
 }
 
 export const Input = ({
@@ -256,36 +259,39 @@ export const Input = ({
   inputClassName,
   wrapperClassName,
   tooltipClassName,
+  isRequired,
+  isInvalid,
   ...props
 }: InputProps) => {
   return (
     <TextField aria-label={!label ? placeholder : undefined} {...props} className={className}>
-      {({ isRequired, isInvalid }) => (
-        <>
-          {label && (
-            <Label isRequired={hideRequiredIndicator ? !hideRequiredIndicator : isRequired}>
-              {label}
-            </Label>
-          )}
+      {label && (
+        <Label isRequired={hideRequiredIndicator ? !hideRequiredIndicator : isRequired}>
+          {label}
+        </Label>
+      )}
 
-          <InputBase
-            {...{
-              ref,
-              groupRef,
-              size,
-              placeholder,
-              icon: Icon,
-              shortcut,
-              iconClassName,
-              inputClassName,
-              wrapperClassName,
-              tooltipClassName,
-              tooltip,
-            }}
-          />
+      <InputBase
+        {...{
+          ref,
+          groupRef,
+          size,
+          placeholder,
+          icon: Icon,
+          shortcut,
+          iconClassName,
+          inputClassName,
+          wrapperClassName,
+          tooltipClassName,
+          tooltip,
+          name: props.name,
+        }}
+      />
 
-          {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
-        </>
+      {hint && (
+        <HintText name={props.name} isInvalid={isInvalid}>
+          {hint}
+        </HintText>
       )}
     </TextField>
   );

@@ -30,6 +30,7 @@ interface ComboBoxProps
     Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">,
     RefAttributes<HTMLDivElement>,
     CommonProps {
+  name: string;
   shortcut?: boolean;
   items?: SelectItemType[];
   popoverClassName?: string;
@@ -132,6 +133,7 @@ const ComboBoxValue = ({
 };
 
 export const ComboBox = ({
+  name,
   placeholder = "Search",
   shortcut = true,
   size = "sm",
@@ -192,7 +194,11 @@ export const ComboBox = ({
               </AriaListBox>
             </Popover>
 
-            {otherProps.hint && <HintText isInvalid={state.isInvalid}>{otherProps.hint}</HintText>}
+            {otherProps.hint && (
+              <HintText name={name} isInvalid={state.isInvalid}>
+                {otherProps.hint}
+              </HintText>
+            )}
           </div>
         )}
       </AriaComboBox>

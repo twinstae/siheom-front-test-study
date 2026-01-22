@@ -8,16 +8,16 @@ export type { A11yNode, A11yNodeStates } from "./a11y/types.ts";
  * Used for snapshot testing to verify accessible semantics.
  */
 export function getA11ySnapshot(element: HTMLElement): string {
-	const tree = buildA11yTree(element);
-	if (!tree) {
-		return "";
-	}
-	return serializeA11yTree(tree).trim();
+  const tree = buildA11yTree(element);
+  if (!tree) {
+    return "";
+  }
+  return serializeA11yTree(tree).trim();
 }
 
 /**
  * Returns the structured accessibility tree for programmatic access.
  */
 export function getA11yTree(element: HTMLElement) {
-	return buildA11yTree(element);
+  return buildA11yTree(element);
 }

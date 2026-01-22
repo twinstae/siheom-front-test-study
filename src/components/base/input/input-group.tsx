@@ -144,7 +144,11 @@ export const InputGroup = ({
             )}
           </div>
 
-          {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
+          {hint && (
+            <HintText name={props.name} isInvalid={isInvalid}>
+              {hint}
+            </HintText>
+          )}
         </>
       )}
     </TextField>

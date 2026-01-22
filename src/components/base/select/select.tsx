@@ -39,6 +39,7 @@ interface SelectProps
     Omit<AriaSelectProps<SelectItemType>, "children" | "items">,
     RefAttributes<HTMLDivElement>,
     CommonProps {
+  name: string;
   items?: SelectItemType[];
   popoverClassName?: string;
   placeholderIcon?: FC | ReactNode;
@@ -137,6 +138,7 @@ const SelectValue = ({
 export const SelectContext = createContext<{ size: "sm" | "md" }>({ size: "sm" });
 
 const Select = ({
+  name,
   placeholder = "Select",
   placeholderIcon,
   size = "sm",
@@ -175,7 +177,11 @@ const Select = ({
               </AriaListBox>
             </Popover>
 
-            {hint && <HintText isInvalid={state.isInvalid}>{hint}</HintText>}
+            {hint && (
+              <HintText name={name} isInvalid={state.isInvalid}>
+                {hint}
+              </HintText>
+            )}
           </>
         )}
       </AriaSelect>

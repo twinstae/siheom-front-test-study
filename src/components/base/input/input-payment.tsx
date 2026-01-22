@@ -82,7 +82,9 @@ export const formatCardNumber = (number: string) => {
   return cleaned;
 };
 
-interface PaymentInputProps extends Omit<InputBaseProps, "icon"> {}
+interface PaymentInputProps extends Omit<InputBaseProps, "icon"> {
+  name: string;
+}
 
 export const PaymentInput = ({
   onChange,
@@ -126,7 +128,11 @@ export const PaymentInput = ({
             iconClassName="left-2.5 h-6 w-8.5"
           />
 
-          {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
+          {hint && (
+            <HintText name={props.name} isInvalid={isInvalid}>
+              {hint}
+            </HintText>
+          )}
         </>
       )}
     </TextField>

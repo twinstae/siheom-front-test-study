@@ -35,6 +35,7 @@ import { cx } from "../../../utils/cx";
 import { SelectItem } from "./select-item";
 
 interface ComboBoxValueProps extends AriaGroupProps {
+  name: string;
   size: "sm" | "md";
   shortcut?: boolean;
   isDisabled?: boolean;
@@ -64,6 +65,7 @@ interface MultiSelectProps
   extends
     Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">,
     RefAttributes<HTMLDivElement> {
+  name: string;
   hint?: string;
   label?: string;
   tooltip?: string;
@@ -81,6 +83,7 @@ interface MultiSelectProps
 }
 
 export const MultiSelectBase = ({
+  name,
   items,
   children,
   size = "sm",
@@ -193,6 +196,7 @@ export const MultiSelectBase = ({
             )}
 
             <MultiSelectTagsValue
+              name={name}
               size={size}
               shortcut={shortcut}
               ref={placeholderRef}
@@ -214,7 +218,11 @@ export const MultiSelectBase = ({
               </AriaListBox>
             </Popover>
 
-            {props.hint && <HintText isInvalid={state.isInvalid}>{props.hint}</HintText>}
+            {props.hint && (
+              <HintText name={name} isInvalid={state.isInvalid}>
+                {props.hint}
+              </HintText>
+            )}
           </div>
         )}
       </AriaComboBox>
@@ -358,6 +366,7 @@ const InnerMultiSelect = ({
 };
 
 export const MultiSelectTagsValue = ({
+  name,
   size,
   shortcut,
   placeholder,
@@ -384,6 +393,7 @@ export const MultiSelectTagsValue = ({
           {Icon && <Icon className="pointer-events-none size-5 text-fg-quaternary" />}
           <FocusScope contain={false} autoFocus={false} restoreFocus={false}>
             <InnerMultiSelect
+              name={name}
               isDisabled={isDisabled}
               size={size}
               shortcut={shortcut}
@@ -403,4 +413,4 @@ const MultiSelect = MultiSelectBase as typeof MultiSelectBase & {
 
 MultiSelect.Item = SelectItem;
 
-export { MultiSelect as MultiSelect };
+export { MultiSelect };
