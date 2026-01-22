@@ -15,6 +15,8 @@ describe("invariant", () => {
   });
 
   it("조건이 false이고 함수 메시지가 있으면 함수 결과를 포함한 에러를 던짐", () => {
-    expect(() => invariant(false, () => "Function message")).toThrow("Invariant failed: Function message");
+    expect(() => invariant(false, () => "Function message")).toThrow(
+      "Invariant failed: Function message",
+    );
   });
 });

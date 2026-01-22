@@ -42,13 +42,15 @@ export async function parseAsyncStandardSchemaV1<Input, Output>(
 }
 
 export function getPath(path: StandardSchemaV1.Issue["path"]): string {
-  return path
-    ?.map((segment) =>
-      typeof segment === "object" && segment !== null && "key" in segment
-        ? `${String(segment.key)}`
-        : String(segment),
-    )
-    .join(".") ?? "<root>";
+  return (
+    path
+      ?.map((segment) =>
+        typeof segment === "object" && segment !== null && "key" in segment
+          ? `${String(segment.key)}`
+          : String(segment),
+      )
+      .join(".") ?? "<root>"
+  );
 }
 
 export function summarizeStandardSchemaV1Issues(

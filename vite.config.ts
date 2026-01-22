@@ -15,7 +15,7 @@ export default defineConfig({
     // react's vite plugin must come after start's vite plugin
 
     viteReact(),
-  ],
+  ] as any,
   test: {
     setupFiles: ["./setupTest.ts"],
     coverage: {
@@ -24,8 +24,8 @@ export default defineConfig({
         "./src/siheom",
         "./src/components",
         "./src/hooks/use-resize-observer.ts",
-        "**/*.stories.tsx"
-      ]
+        "**/*.stories.tsx",
+      ],
     },
     projects: [
       {

@@ -1,6 +1,5 @@
 import type { FocusEventHandler, PointerEventHandler, RefAttributes, RefObject } from "react";
 import { useCallback, useContext, useRef, useState } from "react";
-import { SearchLg as SearchIcon } from "@untitledui/icons";
 import type {
   ComboBoxProps as AriaComboBoxProps,
   GroupProps as AriaGroupProps,
@@ -41,9 +40,9 @@ function getCachedRegExp(filterText: string): RegExp {
 
 interface ComboBoxProps
   extends
-  Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">,
-  RefAttributes<HTMLDivElement>,
-  CommonProps {
+    Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">,
+    RefAttributes<HTMLDivElement>,
+    CommonProps {
   name: string;
   shortcut?: boolean;
   items?: SelectItemType[];
@@ -174,8 +173,11 @@ export const ComboBox = ({
 
   return (
     <SelectContext.Provider value={{ size }}>
-      <AriaComboBox menuTrigger="focus" {...otherProps}
-        defaultFilter={(textLabel, filterText) => getCachedRegExp(filterText).test(textLabel)}>
+      <AriaComboBox
+        menuTrigger="focus"
+        {...otherProps}
+        defaultFilter={(textLabel, filterText) => getCachedRegExp(filterText).test(textLabel)}
+      >
         {(state) => (
           <div className="flex flex-col gap-1.5">
             {otherProps.label && (

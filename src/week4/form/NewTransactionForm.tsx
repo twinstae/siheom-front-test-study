@@ -19,6 +19,7 @@ import {
 import { SimpleForm } from "./SimpleForm";
 import { useFormContext, useWatch } from "react-hook-form";
 import { SimpleErrorMessage } from "./SimpleErrorMessage";
+import { numberToHangulMixed } from "es-hangul";
 
 export function NewTransactionForm({
   addTransaction,
@@ -97,8 +98,11 @@ function PostingsFieldSet() {
         {Array.from({ length: postingsLength }).map((_, index) => {
           const deletePosting = () => {
             const oldPostings = getValues("postings") as SimpleTransaction["postings"];
-            setValue("postings", oldPostings.filter((_, i) => i !== index));
-          }
+            setValue(
+              "postings",
+              oldPostings.filter((_, i) => i !== index),
+            );
+          };
           return (
             <li
               key={index}
@@ -120,6 +124,7 @@ function PostingsFieldSet() {
                 className="max-w-xl"
                 isRequired
                 label={`금액 ${index + 1}`}
+                shortcut={(value) => numberToHangulMixed(value)}
                 trailingAddon={
                   // 통화 commodity Select
                   <SimpleSelect
@@ -143,8 +148,7 @@ function PostingsFieldSet() {
                 aria-label={`계정과목 ${index + 1} 삭제하기`}
               />
             </li>
-          )
-
+          );
         })}
         <li className="ml-4">
           <Button

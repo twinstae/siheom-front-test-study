@@ -201,10 +201,12 @@ function parseSafeNumber(input?: string): number | undefined {
 export function SimpleNumberInputGroup({
   name,
   label,
+  shortcut,
   ...props
 }: Omit<ComponentProps<typeof InputGroup>, "children"> & {
   name: string;
   label: string;
+  shortcut?: string | ((value: number) => string);
 }) {
   const { control } = useFormContext();
 
@@ -235,7 +237,17 @@ export function SimpleNumberInputGroup({
           }}
           {...props}
         >
-          <InputBase name={name} />
+          <InputBase
+            name={name}
+            maxLength={14}
+            shortcut={
+              typeof shortcut === "function"
+                ? field.value
+                  ? shortcut(field.value)
+                  : undefined
+                : shortcut
+            }
+          />
         </InputGroup>
       );
     },

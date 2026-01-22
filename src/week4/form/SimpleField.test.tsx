@@ -1,24 +1,48 @@
 import { describe, it } from "vitest";
 import { runSiheom, query, given, assertions, actions } from "../../siheom";
 import { SimpleForm } from "./SimpleForm";
-import { SimpleInputGroup, SimpleMultiSelect, SimpleNumberInputGroup, SimpleComboboxWithSelect } from "./SimpleField";
+import {
+  SimpleInputGroup,
+  SimpleMultiSelect,
+  SimpleNumberInputGroup,
+  SimpleComboboxWithSelect,
+} from "./SimpleField";
 import type { SelectItemType } from "../../components/base/select/select";
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 const simpleSchema: StandardSchemaV1<
-  { testField?: string | number; testMultiSelect?: string[]; testNumber?: number; testCombobox?: string | null },
-  { testField?: string | number; testMultiSelect?: string[]; testNumber?: number; testCombobox?: string | null }
+  {
+    testField?: string | number;
+    testMultiSelect?: string[];
+    testNumber?: number;
+    testCombobox?: string | null;
+  },
+  {
+    testField?: string | number;
+    testMultiSelect?: string[];
+    testNumber?: number;
+    testCombobox?: string | null;
+  }
 > = {
   "~standard": {
     validate: (data) => ({ value: data }),
   },
 } as StandardSchemaV1<
-  { testField?: string | number; testMultiSelect?: string[]; testNumber?: number; testCombobox?: string | null },
-  { testField?: string | number; testMultiSelect?: string[]; testNumber?: number; testCombobox?: string | null }
+  {
+    testField?: string | number;
+    testMultiSelect?: string[];
+    testNumber?: number;
+    testCombobox?: string | null;
+  },
+  {
+    testField?: string | number;
+    testMultiSelect?: string[];
+    testNumber?: number;
+    testCombobox?: string | null;
+  }
 >;
 
 describe("SimpleInputGroup", () => {
-
   it("field.value가 undefined일 때 빈 문자열로 표시됨", async () => {
     return runSiheom(
       given.render(
@@ -28,7 +52,7 @@ describe("SimpleInputGroup", () => {
           onSubmit={async () => {}}
         >
           <SimpleInputGroup name="testField" label="Test Label" />
-        </SimpleForm>
+        </SimpleForm>,
       ),
       assertions.visible(query.textbox(/Test Label/)),
     );
@@ -43,7 +67,7 @@ describe("SimpleInputGroup", () => {
           onSubmit={async () => {}}
         >
           <SimpleInputGroup name="testField" label="Test Label" />
-        </SimpleForm>
+        </SimpleForm>,
       ),
       assertions.visible(query.textbox(/Test Label/)),
     );
@@ -67,7 +91,7 @@ describe("SimpleMultiSelect", () => {
           onSubmit={async () => {}}
         >
           <SimpleMultiSelect name="testMultiSelect" label="Test MultiSelect" items={items} />
-        </SimpleForm>
+        </SimpleForm>,
       ),
       // 태그가 표시됨
       assertions.visible(query.button(/Item 1/)),
@@ -89,7 +113,7 @@ describe("SimpleNumberInputGroup", () => {
           onSubmit={async () => {}}
         >
           <SimpleNumberInputGroup name="testNumber" label="Test Number" />
-        </SimpleForm>
+        </SimpleForm>,
       ),
       assertions.visible(query.textbox(/Test Number/)),
     );
@@ -113,7 +137,7 @@ describe("SimpleComboboxWithSelect", () => {
           onSubmit={async () => {}}
         >
           <SimpleComboboxWithSelect name="testCombobox" label="Test Combobox" items={items} />
-        </SimpleForm>
+        </SimpleForm>,
       ),
       assertions.visible(query.combobox("Test Combobox")),
       // combobox를 클릭하여 열기

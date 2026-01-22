@@ -5,7 +5,10 @@ import * as v from "valibot";
 
 describe("parseAsyncStandardSchemaV1", () => {
   it("검증이 성공하면 값을 반환", async () => {
-    const schema: StandardSchemaV1<string, string> = v.pipe(v.literal("input"), v.transform((_str) => "test"));
+    const schema: StandardSchemaV1<string, string> = v.pipe(
+      v.literal("input"),
+      v.transform((_str) => "test"),
+    );
 
     const result = await parseAsyncStandardSchemaV1(schema, "input");
     expect(result).toBe("test");
@@ -14,7 +17,9 @@ describe("parseAsyncStandardSchemaV1", () => {
   it("검증이 실패하면 StandardSchemaV1Error를 던짐", async () => {
     const schema: StandardSchemaV1<string, string> = v.literal("test");
 
-    await expect(parseAsyncStandardSchemaV1(schema, "input")).rejects.toThrow(StandardSchemaV1Error);
+    await expect(parseAsyncStandardSchemaV1(schema, "input")).rejects.toThrow(
+      StandardSchemaV1Error,
+    );
     await expect(parseAsyncStandardSchemaV1(schema, "input")).rejects.toThrow("Validation failed");
   });
 });
