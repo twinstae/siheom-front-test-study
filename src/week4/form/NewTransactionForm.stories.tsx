@@ -12,8 +12,21 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-// 빈 경우
 
-// 올바른 값을 넣은 경우
+export const Empty: Story = {
+  args: {
+    initTransaction: {},
+  },
+};
 
-// 차변과 대변의 합이 0이 아닌 경우
+export const ValidData: Story = {
+  args: {
+    initTransaction: validSimpleTransaction,
+  },
+};
+
+export const NotBalanced: Story = {
+  args: {
+    initTransaction: notBalancedSimpleTransaction,
+  },
+};
