@@ -12,9 +12,13 @@ export function SimpleErrorMessage({ name }: { name: string }) {
         <>
           {fieldState.error && (
             <p
-              id={getErrorId(name)}
+              id={"" // field와 연결할 id
+                
+              }
               className="text-sm text-error-primary group-invalid:text-error-primary"
-              role="alert"
+              role={"" // 어떤 role?
+
+              }
               aria-label={fieldState.error?.root?.message ?? fieldState.error?.message}
             >
               {fieldState.error?.root?.message ?? fieldState.error?.message}

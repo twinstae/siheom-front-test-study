@@ -109,9 +109,12 @@ it("새 거래를 추가할 수 있다", async () => {
       ),
       actions.click(query.button("거래 추가하기")),
 
-      assertions.description(query.button(/거래 일자/), "날짜를 입력해주세요"),
-      assertions.errormessage(query.textbox(/거래 설명/), "설명을 입력해주세요"),
-      assertions.visible(query.alert("차변과 대변의 계정과목을 입력해주세요")),
+      // aria-describedby 로 거래 일자 button에 "날짜를 입력해주세요"가 연결됨
+      
+      // aria-errormessage 로 거래 설명 textbox에 "설명을 입력해주세요"가 연결됨
+      
+      // role="alert"로 "차변과 대변의 계정과목을 입력해주세요"가 보임
+      
 
       assertions.a11ySnapshot(
         query.form("새 거래 추가하기"),
