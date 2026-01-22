@@ -41,9 +41,7 @@ describe("parseTransaction", () => {
   });
 
   it("balance가 0이 안 맞는 경우", () => {
-    expect(() => parseTransaction(notBalancedSimpleTransaction)).toThrow(
-      StandardSchemaV1Error,
-    );
+    expect(() => parseTransaction(notBalancedSimpleTransaction)).toThrow(StandardSchemaV1Error);
   });
 
   it("date가 올바르지 않은 경우", () => {

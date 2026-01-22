@@ -19,6 +19,7 @@ import { HintText } from "../../../components/base/input/hint-text";
 import { Label } from "../../../components/base/input/label";
 import { Tooltip, TooltipTrigger } from "../../../components/base/tooltip/tooltip";
 import { cx, sortCx } from "../../../utils/cx";
+import { getErrorId } from "../../../week4/form/SimpleErrorMessage";
 
 export interface InputBaseProps extends TextFieldProps {
   /** Tooltip message on hover. */
@@ -135,6 +136,9 @@ export const InputBase = ({
         {...(inputProps as AriaInputProps)}
         ref={ref}
         placeholder={placeholder}
+        aria-invalid={isInvalid}
+        aria-describedby={isInvalid ? getErrorId(inputProps.name) : undefined}
+        aria-errormessage={isInvalid ? getErrorId(inputProps.name) : undefined}
         className={cx(
           "m-0 w-full bg-transparent text-md text-primary ring-0 outline-hidden placeholder:text-placeholder autofill:rounded-lg autofill:text-primary",
           isDisabled && "cursor-not-allowed text-disabled",
@@ -284,6 +288,7 @@ export const Input = ({
           wrapperClassName,
           tooltipClassName,
           tooltip,
+          isInvalid,
           name: props.name,
         }}
       />

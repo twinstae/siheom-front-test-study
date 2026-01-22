@@ -12,10 +12,12 @@ import {
 import { Button } from "../../../components/base/buttons/button";
 import { cx } from "../../../utils/cx";
 import { Calendar } from "./calendar";
+import { getErrorId } from "../../../week4/form/SimpleErrorMessage";
 
 const highlightedDates = [today(getLocalTimeZone())];
 
 interface DatePickerProps extends AriaDatePickerProps<DateValue> {
+  name: string;
   /** The function to call when the apply button is clicked. */
   onApply?: () => void;
   /** The function to call when the cancel button is clicked. */
@@ -23,6 +25,8 @@ interface DatePickerProps extends AriaDatePickerProps<DateValue> {
 }
 
 export const DatePicker = ({
+  name,
+  isInvalid,
   value: valueProp,
   defaultValue,
   onChange,
@@ -42,7 +46,12 @@ export const DatePicker = ({
   return (
     <AriaDatePicker shouldCloseOnSelect={false} {...props} value={value} onChange={setValue}>
       <AriaGroup>
-        <Button size="md" color="secondary" iconLeading={CalendarIcon}>
+        <Button
+          size="md"
+          color="secondary"
+          iconLeading={CalendarIcon}
+          aria-describedby={isInvalid ? getErrorId(name) : undefined}
+        >
           {formattedDate}
         </Button>
       </AriaGroup>

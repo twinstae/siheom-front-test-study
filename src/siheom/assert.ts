@@ -125,6 +125,14 @@ export const defaultAssertions = {
       }
     });
   },
+  description: async (target: Locator, expected: string) => {
+    await waitFor(async () => {
+      const element = getElement(target, true);
+
+      expect(element).toBeInTheDocument();
+      expect(element).toHaveAccessibleDescription(expected);
+    });
+  },
   a11ySnapshot: async (target: Locator, path: string) => {
     await waitFor(async () => {
       const element = getElement(target, true);
@@ -151,6 +159,13 @@ export const defaultAssertions = {
 } satisfies AssertionStepDefinitionDict;
 
 export const assertions = {
+  description: (target: Locator, expected: string) =>
+    ({
+      assert: "description",
+      target,
+      args: [expected],
+      log: `description: ${target.role} "${target.name}" is "${expected}"`,
+    }) as const,
   visible: (target: Locator) =>
     ({
       assert: "visible",

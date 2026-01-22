@@ -15,21 +15,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Empty: Story = {
   args: {
-    addTransaction: async (result) => { console.log(result) },
+    addTransaction: async (result) => {
+      console.log(result);
+    },
     initTransaction: {},
   },
 };
 
 export const ValidData: Story = {
   args: {
-    addTransaction: async (result) => { console.log(result) },
+    addTransaction: async (result) => {
+      console.log(result);
+    },
     initTransaction: validSimpleTransaction,
   },
 };
 
 export const NotBalanced: Story = {
   args: {
-    addTransaction: async (result) => { console.log(result) },
+    addTransaction: async (result) => {
+      console.log(result);
+    },
     initTransaction: notBalancedSimpleTransaction,
   },
 };

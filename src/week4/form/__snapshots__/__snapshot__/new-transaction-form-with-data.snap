@@ -1,0 +1,47 @@
+form: "새 거래 추가하기"
+  heading: "새 거래 추가하기" [level=2]
+  "거래 일자"
+  "*"
+  group: "거래 일자" [description="선택 일자: 2025년 12월 25일"]
+    button: "달력 거래 일자" [expanded=false] [description="선택 일자: 2025년 12월 25일"]
+      "2025년 12월 25일"
+  "거래 설명"
+  "*"
+  textbox: "거래 설명*" [invalid=false] [value="김토끼가 라즈베리파이를 구매함"]
+  group: "분개"
+    "분개"
+    list
+      listitem
+        "계정과목 1"
+        "*"
+        group
+          combobox: "계정과목 1*" [expanded=false] [value="자산:유동자산:당좌자산:현금및현금성자산:현금"]
+        "금액 1"
+        "*"
+        textbox: "금액 1*" [value="-120000"]
+        button: "KRW 통화 1" [expanded=false]
+          paragraph
+            "KRW"
+        button: "계정과목 1 삭제하기"
+      listitem
+        "계정과목 2"
+        "*"
+        group
+          combobox: "계정과목 2*" [expanded=false] [value="자산:비유동자산:유형자산:기계장치"]
+        "금액 2"
+        "*"
+        textbox: "금액 2*" [value="120000"]
+        button: "KRW 통화 2" [expanded=false]
+          paragraph
+            "KRW"
+        button: "계정과목 2 삭제하기"
+      listitem
+        button: "새 계정과목 추가하기"
+  "태그"
+  "*"
+  group
+    paragraph
+      "구매"
+    button: "Remove this tag 태그*" [expanded=false]
+    combobox: "태그*" [expanded=false] [value=""]
+  button: "거래 추가하기"

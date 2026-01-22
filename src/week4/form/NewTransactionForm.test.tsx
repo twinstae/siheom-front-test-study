@@ -24,7 +24,7 @@ describe("NewTransactionForm", () => {
           addTransaction={async (transaction) => {
             result = toSimpleTransaction(transaction);
           }}
-        />
+        />,
       ),
 
       actions.click(query.button("달력 거래 일자")),
@@ -63,17 +63,25 @@ describe("NewTransactionForm", () => {
       actions.fill(query.combobox(/태그/), "구매"),
       actions.click(query.option("구매")),
       actions.fill(query.combobox(/태그/), "{Escape}"),
-      actions.fill(query.combobox(/태그/), "{Escape}"),
 
       actions.click(query.button("거래 추가하기")),
+
+      assertions.a11ySnapshot(
+        query.form("새 거래 추가하기"),
+        "__snapshot__/new-transaction-form-with-data.snap",
+      ),
     );
 
     expect(result).toStrictEqual({
       date: "2025-12-25",
       description: "김토끼가 라즈베리파이를 구매함",
       postings: [
-        { account: "자산:유동자산:당좌자산:현금및현금성자산:현금", amount: -120000, commodity: "KRW" },
-        { account: "자산:비유동자산:유형자산:기계장치", amount: 120000, commodity: "KRW" }
+        {
+          account: "자산:유동자산:당좌자산:현금및현금성자산:현금",
+          amount: -120000,
+          commodity: "KRW",
+        },
+        { account: "자산:비유동자산:유형자산:기계장치", amount: 120000, commodity: "KRW" },
       ],
       tags: ["구매"],
     });
@@ -89,21 +97,18 @@ describe("NewTransactionForm", () => {
           addTransaction={async (transaction) => {
             result = toSimpleTransaction(transaction);
           }}
-        />
+        />,
       ),
-      actions.click(query.button("달력 거래 일자")),
-      actions.fill(query.spinbutton("년, 거래 일자"), "2025"),
-      actions.fill(query.spinbutton("월, 거래 일자"), "12"),
-      actions.fill(query.spinbutton("일, 거래 일자"), "25"),
-
-      actions.click(query.button("Apply")),
-
-      actions.fill(query.textbox("거래 설명*"), "김토끼가 라즈베리파이를 구매함"),
-
       actions.click(query.button("거래 추가하기")),
 
+      assertions.description(query.button(/거래 일자/), "날짜를 입력해주세요"),
+      assertions.errormessage(query.textbox(/거래 설명/), "설명을 입력해주세요"),
+      assertions.visible(query.alert("차변과 대변의 계정과목을 입력해주세요")),
 
-      // tag는 필수가 아님
+      assertions.a11ySnapshot(
+        query.form("새 거래 추가하기"),
+        "__snapshot__/new-transaction-form-empty.snap",
+      ),
     );
 
     expect(result).toBeUndefined();
@@ -119,7 +124,7 @@ describe("NewTransactionForm", () => {
           addTransaction={async (transaction) => {
             result = toSimpleTransaction(transaction);
           }}
-        />
+        />,
       ),
 
       actions.click(query.button("거래 추가하기")),
