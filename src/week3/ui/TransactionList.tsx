@@ -33,6 +33,13 @@ function TransactionItem({ transaction }: { transaction: ValidTransaction }) {
         <DateBadge date={transaction.date} />
       </div>
       <PostingsList postings={transaction.postings} />
+      <ul className="flex gap-1 mt-3">
+        {transaction.tags.map((tag) => (
+          <Badge type="modern" key={tag}>
+            {tag}
+          </Badge>
+        ))}
+      </ul>
     </li>
   );
 }
@@ -53,13 +60,7 @@ function getAccountColor(account: string): "blue" | "gray" | "error" {
 }
 
 function DateBadge({ date }: { date: Temporal.PlainDate }) {
-  return (
-    <time dateTime={date.toString()}>
-      <Badge type="modern" color="gray" size="md">
-        {date.toLocaleString("ko-KR")}
-      </Badge>
-    </time>
-  );
+  return <time dateTime={date.toString()}>{date.toLocaleString("ko-KR")}</time>;
 }
 
 function PostingsList({ postings }: { postings: ValidTransaction["postings"] }) {
@@ -67,11 +68,11 @@ function PostingsList({ postings }: { postings: ValidTransaction["postings"] }) 
   return (
     <div>
       <h4 id={postingsTitleId} className="font-semibold mb-1">
-        postings
+        분개
       </h4>
       <ul role="list" aria-labelledby={postingsTitleId} className="flex flex-col gap-2">
         {postings.map((posting, pIndex) => (
-          <li key={pIndex} className="flex gap-2 items-center">
+          <li key={pIndex} className="flex gap-2 items-center justify-between">
             <Badge type="color" color={getAccountColor(posting.account)} size="md">
               {posting.account}
             </Badge>
@@ -82,12 +83,8 @@ function PostingsList({ postings }: { postings: ValidTransaction["postings"] }) 
                 posting.amount > 0 ? "text-black" : "text-error-600",
               )}
             >
-              {posting.amount.toLocaleString()}
+              {posting.amount.toLocaleString()} {posting.commodity}
             </span>
-
-            <Badge type="color" color="brand">
-              {posting.commodity}
-            </Badge>
           </li>
         ))}
       </ul>

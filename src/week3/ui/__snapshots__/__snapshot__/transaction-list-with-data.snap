@@ -3,8 +3,8 @@ list: "거래 목록"
     heading: "굿즈 판매 매출" [level=3]
     time
       "2025. 11. 8."
-    heading: "postings" [level=4]
-    list: "postings"
+    heading: "분개" [level=4]
+    list: "분개"
       listitem
         "사업수익:수익사업수익:기념품판매수익"
         "-18,182"
@@ -17,12 +17,16 @@ list: "거래 목록"
         "자산:유동자산:당좌자산:현금및현금성자산:현금"
         "20,000"
         "KRW"
+    list
+      "매출"
+      "굿즈"
+      "부가세"
   listitem
     heading: "이메일 서비스 1년 이용료" [level=3]
     time
       "2026. 1. 5."
-    heading: "postings" [level=4]
-    list: "postings"
+    heading: "분개" [level=4]
+    list: "분개"
       listitem
         "사업비용:일반관리비용:기타비용:지급수수료"
         "34,250"
@@ -31,12 +35,16 @@ list: "거래 목록"
         "부채:유동부채:미지급금"
         "-34,250"
         "KRW"
+    list
+      "비용"
+      "이메일서비스"
+      "미지급금"
   listitem
     heading: "클라우드플레어 | 도메인 이전 및 연장비용" [level=3]
     time
       "2026. 1. 3."
-    heading: "postings" [level=4]
-    list: "postings"
+    heading: "분개" [level=4]
+    list: "분개"
       listitem
         "자산:유동자산:당좌자산:현금및현금성자산:보통예금"
         "-13,294"
@@ -45,3 +53,7 @@ list: "거래 목록"
         "사업비용:일반관리비용:기타비용:지급수수료"
         "13,294"
         "KRW"
+    list
+      "비용"
+      "클라우드플레어"
+      "도메인"
