@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { SimpleNumberInputGroup, SimpleSelect } from "../SimpleField";
+import { SimpleNumberInputGroup, SimpleSelect } from ".";
 import { formDecorator } from "./formDecorator";
-import { COMMODITY_LIST } from "../../../week2/transaction/type";
+import { COMMODITY_LIST } from "../../week2/transaction/type";
 import { numberToHangulMixed } from "es-hangul";
 
 const commodityItems = COMMODITY_LIST.map((id) => ({ id, label: id }));

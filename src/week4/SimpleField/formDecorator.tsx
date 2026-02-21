@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 import { SimpleForm } from "../SimpleForm";
-import { Button } from "../../../components/base/buttons/button";
+import { Button } from "../../components/base/buttons/button";
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 /** Passthrough schema for Storybook – accepts any form values without validation. */

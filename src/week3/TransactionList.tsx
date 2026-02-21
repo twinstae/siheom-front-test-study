@@ -1,10 +1,10 @@
 import { useId } from "react";
-import type { ValidTransaction } from "../../week2/transaction/type";
+import type { ValidTransaction } from "../week2/transaction/type";
 import type { Temporal } from "temporal-polyfill";
-import { Badge } from "../../components/base/badges/badges";
-import { getAccountType } from "../../week2/transaction/domain";
-import { cx } from "../../utils/cx";
-import { Button } from '../../components/base/buttons/button';
+import { Badge } from "../components/base/badges/badges";
+import { getAccountType } from "../week2/transaction/domain";
+import { cx } from "../utils/cx";
+import { Button } from '../components/base/buttons/button';
 
 export function TransactionList({ transactions }: { transactions: ValidTransaction[] }) {
   const titleId = useId();

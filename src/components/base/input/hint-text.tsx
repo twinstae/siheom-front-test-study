@@ -2,7 +2,7 @@ import type { Ref } from "react";
 import type { TextProps as AriaTextProps } from "react-aria-components";
 import { Text as AriaText } from "react-aria-components";
 import { cx } from "../../../utils/cx";
-import { getErrorId } from "../../../week4/form/SimpleErrorMessage";
+import { getErrorId } from "../../../week4/SimpleErrorMessage";
 
 interface HintTextProps extends AriaTextProps {
   /** Indicates that the hint text is an error message. */

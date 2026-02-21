@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { runSiheom, query, given, assertions, actions } from "../../siheom";
+import { runSiheom, query, given, assertions, actions } from "../siheom";
 import { SimpleForm } from "./SimpleForm";
 import {
   SimpleInputGroup,
@@ -7,7 +7,7 @@ import {
   SimpleNumberInputGroup,
   SimpleComboboxWithSelect,
 } from "./SimpleField";
-import type { SelectItemType } from "../../components/base/select/select";
+import type { SelectItemType } from "../components/base/select/select";
 import type { StandardSchemaV1 } from "@standard-schema/spec";
 
 const simpleSchema: StandardSchemaV1<

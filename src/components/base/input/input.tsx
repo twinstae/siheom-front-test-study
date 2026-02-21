@@ -19,7 +19,7 @@ import { HintText } from "../../../components/base/input/hint-text";
 import { Label } from "../../../components/base/input/label";
 import { Tooltip, TooltipTrigger } from "../../../components/base/tooltip/tooltip";
 import { cx, sortCx } from "../../../utils/cx";
-import { getErrorId } from "../../../week4/form/SimpleErrorMessage";
+import { getErrorId } from "../../../week4/SimpleErrorMessage";
 
 export interface InputBaseProps extends TextFieldProps {
   /** Tooltip message on hover. */

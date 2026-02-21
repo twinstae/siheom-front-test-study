@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { SimpleComboboxWithSelect } from "../SimpleField";
+import { SimpleComboboxWithSelect } from ".";
 import { formDecorator } from "./formDecorator";
-import { ACCOUNT_LIST } from "../../../week2/transaction/type";
+import { ACCOUNT_LIST } from "../../week2/transaction/type";
 
 const accountItems = ACCOUNT_LIST.slice(0, 8).map((id) => ({ id, label: id }));
 

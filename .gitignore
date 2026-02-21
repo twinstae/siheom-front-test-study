@@ -33,8 +33,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 # Finder (MacOS) folder config
 .DS_Store
 debug-storybook.log
-src/week3/ui/__screenshots__
-src/week4/form/__screenshots__
+**/__screenshots__
 src/use-resize-observer.ts
 src/cx.ts
 src/is-react-component.ts

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { SimpleMultiSelect } from "../SimpleField";
+import { SimpleMultiSelect } from ".";
 import { formDecorator } from "./formDecorator";
 
 const tagItems = ["구매", "식비", "교통비", "문화생활"].map((tag) => ({ id: tag, label: tag }));

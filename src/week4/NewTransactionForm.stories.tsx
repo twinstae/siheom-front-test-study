@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   notBalancedSimpleTransaction,
   validSimpleTransaction,
-} from "../../week2/transaction/fixtures";
+} from "../week2/transaction/fixtures";
 import { NewTransactionForm } from "./NewTransactionForm";
 
 const meta = {

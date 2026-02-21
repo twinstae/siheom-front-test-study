@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { SimpleInputGroup } from "../SimpleField";
+import { SimpleInputGroup } from ".";
 import { formDecorator } from "./formDecorator";
 
 const meta = {

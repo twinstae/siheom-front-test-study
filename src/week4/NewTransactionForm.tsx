@@ -5,9 +5,9 @@ import {
   COMMODITY_LIST,
   type SimpleTransaction,
   type ValidTransaction,
-} from "../../week2/transaction/type";
-import { Button } from "../../components/base/buttons/button";
-import { validTransactionSchema } from "../../week2/transaction/parser";
+} from "../week2/transaction/type";
+import { Button } from "../components/base/buttons/button";
+import { validTransactionSchema } from "../week2/transaction/parser";
 import {
   SimpleComboboxWithSelect,
   SimpleDatePicker,

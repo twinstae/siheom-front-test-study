@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { runSiheom, query, given, assertions } from "../../siheom";
+import { runSiheom, query, given, assertions } from "../siheom";
 import { TransactionList } from "./TransactionList";
 import * as Stories from "./TransactionList.stories";
 

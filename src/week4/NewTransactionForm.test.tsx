@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { Temporal } from "temporal-polyfill";
 
-import { runSiheom, query, given, assertions, actions } from "../../siheom";
+import { runSiheom, query, given, assertions, actions } from "../siheom";
 import { NewTransactionForm } from "./NewTransactionForm";
 import * as Stories from "./NewTransactionForm.stories";
-import type { SimpleTransaction, ValidTransaction } from "../../week2/transaction/type";
+import type { SimpleTransaction, ValidTransaction } from "../week2/transaction/type";
 
 function toSimpleTransaction(transaction: ValidTransaction): SimpleTransaction {
   return {

@@ -12,7 +12,7 @@ import {
 import { Button } from "../../../components/base/buttons/button";
 import { cx } from "../../../utils/cx";
 import { Calendar } from "./calendar";
-import { getErrorId } from "../../../week4/form/SimpleErrorMessage";
+import { getErrorId } from "../../../week4/SimpleErrorMessage";
 
 const highlightedDates = [today(getLocalTimeZone())];
 

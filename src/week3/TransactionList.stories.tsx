@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { TransactionList } from "./TransactionList";
-import { parseTransaction } from "../../week2/transaction/parser";
-import { TestSimpleTransactionList } from "../../week2/transaction/fixtures";
+import { parseTransaction } from "../week2/transaction/parser";
+import { TestSimpleTransactionList } from "../week2/transaction/fixtures";
 
 const meta = {
   component: TransactionList,

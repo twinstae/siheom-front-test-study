@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { SimpleDatePicker } from "../SimpleField";
+import { SimpleDatePicker } from ".";
 import { formDecorator } from "./formDecorator";
 
 const meta = {
