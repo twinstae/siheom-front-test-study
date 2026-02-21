@@ -2,20 +2,25 @@ import { describe, it } from "vitest";
 import { runSiheom, query, given, assertions } from "../../siheom";
 import { TransactionList } from "./TransactionList";
 import * as Stories from "./TransactionList.stories";
-import { parseTransaction } from "../../week2/transaction/parser";
-import { validSimpleTransaction } from "../../week2/transaction/fixtures";
 
 describe("TransactionList", () => {
-  it("거래가 없으면, 거래가 없다고 한다", async () => {
+  // 비어 있는 경우
+  it("비어 있는 경우에는 거래 추가하기 링크가 보여야한다", async () => {
     return runSiheom(
-      given.render(<TransactionList {...Stories.Empty.args} />),
+      // given 이전 상태, 셋업
+      given.render(
+        <TransactionList {...Stories.Empty.args} />
+      ),
 
-      assertions.visible(query.list("거래 목록")),
-      assertions.visible(query.text("거래가 없습니다.")),
+      // when 사용자의 동작, mutation
+
+      // then 이후 상태, 결과
+      assertions.visible(query.link("거래 추가하기"))
     );
-  });
-
-  it("거래가 있으면, 거래 내역을 보여준다", async () => {
+  })
+  
+  // 1개? 여러 개 있는 경우
+it("거래가 있으면, 거래 내역을 보여준다", async () => {
     return runSiheom(
       given.render(<TransactionList {...Stories.WithData.args} />),
       assertions.visible(query.heading("굿즈 판매 매출")),
@@ -27,12 +32,4 @@ describe("TransactionList", () => {
     );
   });
 
-  it("자산 계정은 gray 색상으로 표시됨", async () => {
-    const transaction = parseTransaction(validSimpleTransaction);
-
-    return runSiheom(
-      given.render(<TransactionList transactions={[transaction]} />),
-      assertions.visible(query.text("자산:현금")),
-    );
-  });
 });

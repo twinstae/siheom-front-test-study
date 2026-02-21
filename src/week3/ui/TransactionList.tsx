@@ -4,6 +4,7 @@ import type { Temporal } from "temporal-polyfill";
 import { Badge } from "../../components/base/badges/badges";
 import { getAccountType } from "../../week2/transaction/domain";
 import { cx } from "../../utils/cx";
+import { Button } from '../../components/base/buttons/button';
 
 export function TransactionList({ transactions }: { transactions: ValidTransaction[] }) {
   const titleId = useId();
@@ -14,7 +15,11 @@ export function TransactionList({ transactions }: { transactions: ValidTransacti
       </h2>
       <ul role="list" aria-labelledby={titleId}>
         {transactions.length === 0 ? (
-          <li>거래가 없습니다.</li>
+          <li>
+            <Button href="/transactions/add">
+              거래 추가하기
+            </Button>
+          </li>
         ) : (
           transactions.map((transaction, index) => {
             return <TransactionItem key={index} transaction={transaction} />;
@@ -56,6 +61,10 @@ function getAccountColor(account: string): "blue" | "gray" | "error" {
       return "blue";
     case "사업비용":
       return "error";
+    case "사업외비용":
+      return "error";
+    case "사업외수익":
+      return "blue";
   }
 }
 

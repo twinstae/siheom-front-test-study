@@ -31,6 +31,7 @@ describe("NewTransactionForm", () => {
     let result: SimpleTransaction | undefined;
 
     await runSiheom(
+      // given
       given.render(
         <NewTransactionForm
           {...Stories.Empty.args}
@@ -39,6 +40,8 @@ describe("NewTransactionForm", () => {
           }}
         />,
       ),
+
+      // 값을 열심히 입력을 한다
 
       fillDate("거래 일자", Temporal.PlainDate.from("2025-12-25")),
 
@@ -72,6 +75,7 @@ describe("NewTransactionForm", () => {
       actions.click(query.option("구매")),
       actions.type(query.combobox(/태그/), "{Escape}"),
 
+      // submit함
       actions.click(query.button("거래 추가하기")),
 
       assertions.a11ySnapshot(
@@ -80,6 +84,7 @@ describe("NewTransactionForm", () => {
       ),
     );
 
+    // then 올바른 값이 제출됨
     expect(result).toStrictEqual({
       date: "2025-12-25",
       description: "김토끼가 라즈베리파이를 구매함",
@@ -89,7 +94,11 @@ describe("NewTransactionForm", () => {
           amount: -120000,
           commodity: "KRW",
         },
-        { account: "자산:비유동자산:유형자산:기계장치", amount: 120000, commodity: "KRW" },
+        {
+          account: "자산:비유동자산:유형자산:기계장치",
+          amount: 120000,
+          commodity: "KRW"
+        },
       ],
       tags: ["구매"],
     });

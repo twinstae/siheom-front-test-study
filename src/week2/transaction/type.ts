@@ -163,5 +163,6 @@ export type ValidTransaction = Brand<
   "ValidTransaction"
 >;
 
-export const ACCOUNT_TYPE_LIST = ["자본", "자산", "부채", "사업수익", "사업비용"] as const;
+
+export const ACCOUNT_TYPE_LIST = ["자본", "자산", "부채", "사업수익", "사업비용", "사업외수익", "사업외비용"] as const;
 export type AccountType = (typeof ACCOUNT_TYPE_LIST)[number];

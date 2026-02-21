@@ -44,6 +44,19 @@ describe("parseTransaction", () => {
     expect(() => parseTransaction(notBalancedSimpleTransaction)).toThrow(StandardSchemaV1Error);
   });
 
+  it("차변과 대변 최소 2개 이상이 있어야 한다", () => {
+    assertStandardSchemaV1Error(
+      () =>
+        parseTransaction({
+          ...validSimpleTransaction,
+          postings: [],
+        }),
+      {
+        "postings": "차변과 대변의 계정과목을 입력해주세요",
+      },
+    );
+  });
+
   it("date가 올바르지 않은 경우", () => {
     assertStandardSchemaV1Error(
       () =>
