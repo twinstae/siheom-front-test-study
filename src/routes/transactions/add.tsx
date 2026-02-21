@@ -6,6 +6,7 @@ import { useCreateTransaction } from '@/week5/api/mutations';
 import { useTransactionList } from '@/week5/api/queries';
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from 'react';
+import { Temporal } from 'temporal-polyfill';
 
 export const Route = createFileRoute('/transactions/add')({
   component: NewTransactionPage,
@@ -16,6 +17,7 @@ function NewTransactionPage() {
   const transactions = useTransactionList();
 
   const selectedTransaction = transactions.find((transaction) => transaction.date.toString() + transaction.description === selectedId);
+  const initTransaction = selectedTransaction ? mapToSimpleTransaction(selectedTransaction) : {};
 
   const { mutateAsync } = useCreateTransaction();
   return (
@@ -23,7 +25,10 @@ function NewTransactionPage() {
       <NewTransactionForm
         key={selectedId}
         addTransaction={mutateAsync}
-        initTransaction={selectedTransaction ? mapToSimpleTransaction(selectedTransaction) : {}} />
+        initTransaction={{
+          ...initTransaction,
+          date: Temporal.Now.plainDateISO().toString(),
+        }} />
 
       <TransactionList transactions={transactions} selectId={setSelectedId} />
     </div>
