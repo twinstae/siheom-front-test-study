@@ -4,7 +4,6 @@ import type { Temporal } from "temporal-polyfill";
 import { Badge } from "../components/base/badges/badges";
 import { getAccountType } from "../week2/transaction/domain";
 import { cx } from "../utils/cx";
-import { Button } from '../components/base/buttons/button';
 
 export function TransactionList({ transactions }: { transactions: ValidTransaction[] }) {
   const titleId = useId();
@@ -13,12 +12,10 @@ export function TransactionList({ transactions }: { transactions: ValidTransacti
       <h2 id={titleId} className="text-3xl font-bold mb-2">
         거래 목록
       </h2>
-      <ul role="list" aria-labelledby={titleId}>
+      <ul role="list" aria-labelledby={titleId} className='flex flex-col gap-4'>
         {transactions.length === 0 ? (
           <li>
-            <Button href="/transactions/add">
-              거래 추가하기
-            </Button>
+            거래 내역이 없습니다
           </li>
         ) : (
           transactions.map((transaction, index) => {

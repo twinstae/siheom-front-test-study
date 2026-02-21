@@ -15,7 +15,7 @@ describe("TransactionList", () => {
       // when 사용자의 동작, mutation
 
       // then 이후 상태, 결과
-      assertions.visible(query.link("거래 추가하기"))
+      assertions.visible(query.text("거래 내역이 없습니다"))
     );
   })
   

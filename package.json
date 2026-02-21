@@ -19,6 +19,7 @@
     "@react-stately/utils": "^3.10.8",
     "@standard-schema/spec": "^1.1.0",
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "^5.90.21",
     "@tanstack/react-router": "^1.149.3",
     "@tanstack/react-start": "^1.149.4",
     "@untitledui/icons": "^0.0.19",

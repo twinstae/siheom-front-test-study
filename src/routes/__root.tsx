@@ -2,7 +2,8 @@
 /// <reference types="vite/client" />
 import type { ReactNode } from "react";
 import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import "@/week3/ui/index.css";
+import "../week3/index.css";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -21,11 +22,17 @@ export const Route = createRootRoute({
   }),
   component: RootComponent,
 });
+// Create a client
+const queryClient = new QueryClient()
 
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <div style={{padding: "16px"}}>
+          <Outlet />
+        </div>
+      </QueryClientProvider>
     </RootDocument>
   );
 }
