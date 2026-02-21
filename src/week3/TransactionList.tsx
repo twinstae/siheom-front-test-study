@@ -4,8 +4,9 @@ import type { Temporal } from "temporal-polyfill";
 import { Badge } from "../components/base/badges/badges";
 import { getAccountType } from "../week2/transaction/domain";
 import { cx } from "../utils/cx";
+import { Button } from '@/components/base/buttons/button';
 
-export function TransactionList({ transactions }: { transactions: ValidTransaction[] }) {
+export function TransactionList({ transactions, selectId }: { transactions: ValidTransaction[], selectId: (id: string) => void }) {
   const titleId = useId();
   return (
     <div>
@@ -19,7 +20,7 @@ export function TransactionList({ transactions }: { transactions: ValidTransacti
           </li>
         ) : (
           transactions.map((transaction, index) => {
-            return <TransactionItem key={index} transaction={transaction} />;
+            return <TransactionItem key={index} transaction={transaction} selectId={selectId} />;
           })
         )}
       </ul>
@@ -27,12 +28,15 @@ export function TransactionList({ transactions }: { transactions: ValidTransacti
   );
 }
 
-function TransactionItem({ transaction }: { transaction: ValidTransaction }) {
+function TransactionItem({ transaction, selectId }: { transaction: ValidTransaction, selectId: (id: string) => void }) {
   return (
     <li className="shadow-sm rounded-lg p-4">
       <div className="flex items-center gap-2 mb-2">
         <h3 className="text-2xl text-primary font-semibold">{transaction.description}</h3>
         <DateBadge date={transaction.date} />
+        <Button color="secondary" onClick={() => selectId(transaction.date.toString() + transaction.description)}>
+          복제하기
+        </Button>
       </div>
       <PostingsList postings={transaction.postings} />
       <ul className="flex gap-1 mt-3">
