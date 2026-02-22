@@ -40,7 +40,11 @@ export default defineConfig({
           css: true,
           browser: {
             headless: true,
-            provider: playwright(),
+            provider: playwright({
+              contextOptions: {
+                timezoneId: "Asia/Seoul",
+              }
+            }),
             enabled: true,
             instances: [{ browser: "chromium" }],
           },

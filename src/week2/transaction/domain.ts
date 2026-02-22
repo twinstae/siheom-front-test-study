@@ -1,4 +1,4 @@
-import type { AccountType, SimpleTransaction } from "./type";
+import type { AccountType, SimpleTransaction, ValidTransaction } from "./type";
 
 function sum(arr: Iterable<number>): number {
   let total = 0;
@@ -25,4 +25,8 @@ export function getAccountType(account: string): AccountType {
     return "사업비용";
   }
   throw new Error(`Unknown account type: ${account}`);
+}
+
+export function getId(transaction: ValidTransaction): string {
+  return transaction.date.toString() + transaction.description;
 }

@@ -1,7 +1,6 @@
 // import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { client } from "./client";
-import { parseTransaction } from '@/week2/transaction/parser';
-import { TestSimpleTransactionList } from '@/week2/transaction/fixtures';
 
 export const transactionListQueryOption = {
   queryKey: ["transactions"],
@@ -9,7 +8,6 @@ export const transactionListQueryOption = {
 };
 
 export function useTransactionList() {
-  // const { data } = useSuspenseQuery(transactionListQueryOption);
-
-  return TestSimpleTransactionList.map(parseTransaction);
+  const { data } = useSuspenseQuery(transactionListQueryOption);
+  return data;
 }

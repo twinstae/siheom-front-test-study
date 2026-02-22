@@ -2,9 +2,9 @@ import { useId } from "react";
 import type { ValidTransaction } from "../week2/transaction/type";
 import type { Temporal } from "temporal-polyfill";
 import { Badge } from "../components/base/badges/badges";
-import { getAccountType } from "../week2/transaction/domain";
+import { getAccountType, getId } from "../week2/transaction/domain";
 import { cx } from "../utils/cx";
-import { Button } from '@/components/base/buttons/button';
+import { Button } from '../components/base/buttons/button';
 
 export function TransactionList({ transactions, selectId }: { transactions: ValidTransaction[], selectId: (id: string) => void }) {
   const titleId = useId();
@@ -34,8 +34,9 @@ function TransactionItem({ transaction, selectId }: { transaction: ValidTransact
       <div className="flex items-center gap-2 mb-2">
         <h3 className="text-2xl text-primary font-semibold">{transaction.description}</h3>
         <DateBadge date={transaction.date} />
-        <Button color="secondary" onClick={() => selectId(transaction.date.toString() + transaction.description)}>
-          복제하기
+        <Button color="secondary" onClick={() => selectId(getId(transaction))}
+          aria-label={`${transaction.description} 복사하기`}>
+          복사하기
         </Button>
       </div>
       <PostingsList postings={transaction.postings} />

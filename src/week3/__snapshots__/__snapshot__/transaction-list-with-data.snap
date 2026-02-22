@@ -3,6 +3,8 @@ list: "거래 목록"
     heading: "굿즈 판매 매출" [level=3]
     time
       "2025. 11. 8."
+    button: "굿즈 판매 매출 복사하기"
+      "복사하기"
     heading: "분개" [level=4]
     list: "분개"
       listitem
@@ -25,6 +27,8 @@ list: "거래 목록"
     heading: "이메일 서비스 1년 이용료" [level=3]
     time
       "2026. 1. 5."
+    button: "이메일 서비스 1년 이용료 복사하기"
+      "복사하기"
     heading: "분개" [level=4]
     list: "분개"
       listitem
@@ -43,6 +47,8 @@ list: "거래 목록"
     heading: "클라우드플레어 | 도메인 이전 및 연장비용" [level=3]
     time
       "2026. 1. 3."
+    button: "클라우드플레어 | 도메인 이전 및 연장비용 복사하기"
+      "복사하기"
     heading: "분개" [level=4]
     list: "분개"
       listitem

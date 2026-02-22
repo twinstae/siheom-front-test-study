@@ -1,7 +1,10 @@
-import { describe, it } from "vitest";
-import { runSiheom, query, given, assertions } from "../siheom";
+import { describe, expect, it } from "vitest";
+import { runSiheom, query, given, assertions, actions } from "../siheom";
 import { TransactionList } from "./TransactionList";
 import * as Stories from "./TransactionList.stories";
+import { getId } from '../week2/transaction/domain';
+import { parseTransaction } from '../week2/transaction/parser';
+import { emailServiceFeeTransaction } from '../week2/transaction/fixtures';
 
 describe("TransactionList", () => {
   // 비어 있는 경우
@@ -32,4 +35,16 @@ it("거래가 있으면, 거래 내역을 보여준다", async () => {
     );
   });
 
+  it("복사하기 버튼을 누르면, id가 선택된다", async () => {
+    let selectedId: string | null = null;
+
+    await runSiheom(
+      given.render(<TransactionList {...Stories.WithData.args} selectId={(id) => {
+        selectedId = id;
+      }} />),
+      actions.click(query.button("이메일 서비스 1년 이용료 복사하기")),
+    );
+
+    expect(selectedId).toBe(getId(parseTransaction(emailServiceFeeTransaction)));
+  });
 });
